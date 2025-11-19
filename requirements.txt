@@ -1,0 +1,4 @@
+sentence-transformers
+tree_sitter
+numpy
+faiss
