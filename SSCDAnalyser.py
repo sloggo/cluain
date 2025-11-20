@@ -10,9 +10,10 @@ from datetime import datetime
 
 
 class SSCDAnalyser:
-    def __init__(self, model_name='mchochlov/codebert-base-cd-ft', threshold=0.95):
+    def __init__(self, model_name='mchochlov/codebert-base-cd-ft', threshold=0.95, minimum_block_size=80):
         self.model = SentenceTransformer(model_name)
         self.threshold = threshold
+        self.minimum_block_size = minimum_block_size
 
         self.c_language = Language(tsc.language())
         self.cpp_language = Language(tscpp.language())
@@ -118,6 +119,9 @@ class SSCDAnalyser:
                         break
 
                     if blocks[global_idx]['file'] == blocks[neighbor_idx]['file']:
+                        continue
+
+                    if blocks[global_idx]['size'] < self.minimum_block_size or blocks[neighbor_idx]['size'] < self.minimum_block_size:
                         continue
 
                     pair = tuple(sorted([global_idx, neighbor_idx]))
