@@ -58,15 +58,31 @@ class SSCDAnalyser:
         except Exception as e:
             return []
 
-    def scan_codebase(self, root_dir):
+    def scan_codebase(self, root_dir, excluded_paths):
         """Extract all code blocks from C/C++ codebase"""
-        root = Path(root_dir)
-        all_blocks = []
+        root = Path(root_dir).resolve()
+        excluded = [(root / ex.lstrip("/")).resolve() for ex in excluded_paths]
 
+        all_blocks = []
         extensions = ['*.c', '*.cpp', '*.cc', '*.cxx', '*.h', '*.hpp', '*.hxx']
 
         for ext in extensions:
             for file_path in root.rglob(ext):
+                file_path = file_path.resolve()
+
+                skip = False
+                for ex in excluded:
+                    if ex.is_dir() and file_path.is_relative_to(ex):
+                        skip = True
+                        break
+
+                    if file_path == ex:
+                        skip = True
+                        break
+
+                if skip:
+                    continue
+
                 blocks = self.extract_code_blocks(file_path)
                 all_blocks.extend(blocks)
 
@@ -158,10 +174,10 @@ class SSCDAnalyser:
             }
         }
 
-    def analyze(self, root_dir, repo_name=None):
+    def analyze(self, root_dir, repo_name=None, excluded_paths=None):
         """Full SSCD-style analysis for C/C++"""
         print(f"Scanning C/C++ codebase: {root_dir}")
-        blocks = self.scan_codebase(root_dir)
+        blocks = self.scan_codebase(root_dir, excluded_paths)
         print(f"Extracted {len(blocks)} code blocks")
 
         if not blocks:
