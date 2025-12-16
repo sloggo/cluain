@@ -70,18 +70,17 @@ def main_analyse():
 
 def main_historical():
     """CLI entry point for historical analysis."""
-    from .historical import HistoricalTracker
-
     parser = argparse.ArgumentParser(description='Track duplication history')
     parser.add_argument('repo_url', help='Repository URL (e.g., github.com/user/repo)')
     parser.add_argument('--name', help='Repository name (default: from URL)')
     parser.add_argument('--years', type=int, default=3, help='Years of history')
-    parser.add_argument('--workers', type=int, default=2, help='Parallel workers')
+    parser.add_argument('--workers', type=int, default=2, help='Parallel workers (ignored if --fast)')
     parser.add_argument('--threshold', type=float, default=0.95)
     parser.add_argument('--min-size', type=int, default=150)
     parser.add_argument('--exclude', nargs='*', default=['/tests', '/test', '/bench'])
     parser.add_argument('--output', '-o', default='history.json', help='Output file')
     parser.add_argument('--clone-dir', default='./repos', help='Clone directory')
+    parser.add_argument('--fast', action='store_true', help='Use incremental diff analysis (faster)')
 
     args = parser.parse_args()
 
@@ -96,7 +95,13 @@ def main_historical():
 
     repo_name = args.name or args.repo_url.split('/')[-1]
 
-    tracker = HistoricalTracker(config, clone_dir=args.clone_dir, workers=args.workers)
+    if args.fast:
+        from .incremental import IncrementalTracker
+        tracker = IncrementalTracker(config, clone_dir=args.clone_dir)
+    else:
+        from .historical import HistoricalTracker
+        tracker = HistoricalTracker(config, clone_dir=args.clone_dir, workers=args.workers)
+
     history = tracker.track_repository(
         repo_name=repo_name,
         repo_url=args.repo_url,
@@ -119,6 +124,7 @@ def main_batch():
     parser.add_argument('--threshold', type=float, default=0.95)
     parser.add_argument('--min-size', type=int, default=150)
     parser.add_argument('--exclude', nargs='*', default=['/tests', '/test', '/bench'])
+    parser.add_argument('--fast', action='store_true', help='Use incremental diff analysis (faster)')
 
     args = parser.parse_args()
 
@@ -138,7 +144,8 @@ def main_batch():
         config=config,
         workers=args.workers,
         years=args.years,
-        excluded_paths=args.exclude
+        excluded_paths=args.exclude,
+        fast=args.fast
     )
 
 

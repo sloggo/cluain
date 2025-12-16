@@ -35,7 +35,8 @@ def run_batch_analysis(
     config: dict = None,
     workers: int = 1,
     years: int = 3,
-    excluded_paths: list = None
+    excluded_paths: list = None,
+    fast: bool = False
 ) -> dict:
     """
     Run historical analysis on all repositories in CSV.
@@ -48,6 +49,7 @@ def run_batch_analysis(
         workers: Parallel workers per repo
         years: Years of history to analyse
         excluded_paths: Paths to exclude (applied to all repos)
+        fast: Use incremental diff analysis (faster)
 
     Returns:
         Summary dict with results for each repo
@@ -73,9 +75,14 @@ def run_batch_analysis(
     print(f"Repositories: {len(repos)}")
     print(f"Years: {years}")
     print(f"Output: {output_path}")
+    print(f"Mode: {'incremental (fast)' if fast else 'full'}")
     print()
 
-    tracker = HistoricalTracker(config, clone_dir=clone_dir, workers=workers)
+    if fast:
+        from .incremental import IncrementalTracker
+        tracker = IncrementalTracker(config, clone_dir=clone_dir)
+    else:
+        tracker = HistoricalTracker(config, clone_dir=clone_dir, workers=workers)
 
     summary = {
         'started_at': datetime.now().isoformat(),
