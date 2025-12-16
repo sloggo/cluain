@@ -3,4 +3,4 @@ tree_sitter
 tree-sitter-c
 tree-sitter-cpp
 numpy
-scikit-learn
+scikit-learnmatplotlib
