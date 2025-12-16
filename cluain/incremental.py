@@ -113,7 +113,7 @@ class IncrementalTracker:
                 block_cache[cache_key] = (file_hash, block)
 
             # Encode all
-            embeddings = self.embedder.encode_blocks(blocks)
+            embeddings = self.embedder.encode_blocks(blocks, show_progress=True)
             for idx, block in enumerate(blocks):
                 cache_key = (block['file'], block['start_line'])
                 embedding_cache[cache_key] = embeddings[idx]
@@ -147,7 +147,7 @@ class IncrementalTracker:
             if new_blocks:
                 print(f"  Encoding {len(new_blocks)} new/changed functions")
                 new_codes = [b[1]['code'] for b in new_blocks]
-                new_embeddings = self.embedder.encode(new_codes)
+                new_embeddings = self.embedder.encode(new_codes, show_progress=True)
                 for idx, (cache_key, _) in enumerate(new_blocks):
                     embedding_cache[cache_key] = new_embeddings[idx]
 
