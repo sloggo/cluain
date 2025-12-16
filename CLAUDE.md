@@ -94,27 +94,20 @@ python -m cluain.cli --repo . --base main --head feature --output github
     comment-on-pr: 'true'
 ```
 
-### Historical Analysis
-```python
-from cluain import HistoricalTracker
+### Historical Analysis (single repo)
+```bash
+python -m cluain history github.com/user/repo --years 3 --output history.json
+```
 
-config = {
-    'threshold': 0.95,
-    'minimum_block_size': 150,
-    'device': 'cpu',
-    'max_threads': 4,
-    'encode_batch_size': 32,
-    'similarity_batch_size': 500
-}
+### Batch Analysis (multiple repos from CSV)
+```bash
+python -m cluain batch repositories.csv --output-dir ./results --years 3
+```
 
-tracker = HistoricalTracker(config, clone_dir="./repos", workers=2)
-history = tracker.track_repository(
-    repo_name="myrepo",
-    repo_url="github.com/user/myrepo",
-    excluded_paths=["/tests"],
-    years=3
-)
-tracker.save_history(history, "history.json")
+CSV format (no header):
+```
+reponame,github.com/user/repo
+another,github.com/user/another
 ```
 
 ## Clone Types
