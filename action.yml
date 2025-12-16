@@ -71,7 +71,7 @@ runs:
         echo "Analysing $BASE_SHA...$HEAD_SHA"
 
         # Run analysis and capture both stdout and stderr
-        python $CLUAIN_PATH/PRAnalyser.py \
+        PYTHONPATH=$CLUAIN_PATH python -m cluain.cli \
           --repo ${{ github.workspace }} \
           --base $BASE_SHA \
           --head $HEAD_SHA \
@@ -94,7 +94,7 @@ runs:
         echo "duplicate-count=$DUPLICATES" >> $GITHUB_OUTPUT
 
         # Generate markdown
-        python $CLUAIN_PATH/PRAnalyser.py \
+        PYTHONPATH=$CLUAIN_PATH python -m cluain.cli \
           --repo ${{ github.workspace }} \
           --base $BASE_SHA \
           --head $HEAD_SHA \

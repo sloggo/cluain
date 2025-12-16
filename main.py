@@ -1,20 +1,27 @@
-from SSCDAnalyser import SSCDAnalyser
-from HistoricalTracker import HistoricalTracker
+"""
+Example usage of Cluain for codebase analysis.
+"""
+
+from cluain import Analyser
+import json
 
 if __name__ == "__main__":
-    analyser = SSCDAnalyser(
+    analyser = Analyser(
+        threshold=0.95,
         minimum_block_size=150,
+        device='cpu',
         max_threads=4,
         encode_batch_size=32,
-        similarity_batch_size=500,
-        device='cpu'
+        similarity_batch_size=500
     )
-    tracker = HistoricalTracker(analyser, clone_dir="./repos", workers=2)
 
-    history = tracker.track_repository(
-        repo_name="seasocks",
-        repo_url="github.com/mattgodbolt/seasocks",
-        excluded_paths=["/tests", "/bench", "/example"],
-        years=5
+    result = analyser.analyse(
+        root_dir="./repos/spdlog",
+        excluded_paths=["/tests", "/bench", "/example"]
     )
-    tracker.save_history(history, "spdlog_history.json")
+
+    with open("analysis_result.json", "w") as f:
+        json.dump(result, f, indent=2)
+
+    print(f"Found {result['metrics']['duplicate_pairs']} duplicate pairs")
+    print(f"Clone types: {result['metrics']['clone_types']}")
