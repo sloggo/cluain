@@ -60,7 +60,7 @@ class PRAnalyser:
         if not changed_files:
             return []
 
-        print(f"Found {len(changed_files)} changed C/C++ files")
+        print(f"Found {len(changed_files)} changed C/C++ files", file=sys.stderr)
 
         # Checkout HEAD and extract functions from changed files
         changed_blocks = []
@@ -124,7 +124,7 @@ class PRAnalyser:
         Returns:
             Analysis result with detected duplications
         """
-        print(f"Analysing PR: {base}...{head}")
+        print(f"Analysing PR: {base}...{head}", file=sys.stderr)
 
         # Get functions changed in PR
         changed_blocks = self.get_changed_functions(repo_path, base, head)
@@ -136,11 +136,11 @@ class PRAnalyser:
                 'summary': {'total_changed_functions': 0}
             }
 
-        print(f"Extracted {len(changed_blocks)} functions from changed files")
+        print(f"Extracted {len(changed_blocks)} functions from changed files", file=sys.stderr)
 
         # Get baseline (or use provided cache)
         if baseline_blocks is None:
-            print("Scanning baseline codebase...")
+            print("Scanning baseline codebase...", file=sys.stderr)
             baseline_blocks = self.get_baseline_blocks(repo_path, base, excluded_paths)
 
         if not baseline_blocks:
@@ -151,23 +151,23 @@ class PRAnalyser:
                 'summary': {'total_changed_functions': len(changed_blocks)}
             }
 
-        print(f"Comparing against {len(baseline_blocks)} baseline functions")
+        print(f"Comparing against {len(baseline_blocks)} baseline functions", file=sys.stderr)
 
         # Encode both sets
         changed_codes = [b['code'] for b in changed_blocks]
         baseline_codes = [b['code'] for b in baseline_blocks]
 
-        print("Encoding changed functions...")
+        print("Encoding changed functions...", file=sys.stderr)
         changed_embeddings = self.analyser.model.encode(
             changed_codes,
             show_progress_bar=False,
             batch_size=self.analyser.encode_batch_size
         )
 
-        print("Encoding baseline functions...")
+        print("Encoding baseline functions...", file=sys.stderr)
         baseline_embeddings = self.analyser.model.encode(
             baseline_codes,
-            show_progress_bar=True,
+            show_progress_bar=False,
             batch_size=self.analyser.encode_batch_size
         )
 
@@ -175,7 +175,7 @@ class PRAnalyser:
         from sklearn.metrics.pairwise import cosine_similarity
         import numpy as np
 
-        print("Computing similarities...")
+        print("Computing similarities...", file=sys.stderr)
         similarities = cosine_similarity(changed_embeddings, baseline_embeddings)
 
         # Find duplicates

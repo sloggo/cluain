@@ -68,13 +68,26 @@ runs:
         BASE_SHA=${{ github.event.pull_request.base.sha }}
         HEAD_SHA=${{ github.event.pull_request.head.sha }}
 
+        echo "Analysing $BASE_SHA...$HEAD_SHA"
+
+        # Run analysis and capture both stdout and stderr
         python $CLUAIN_PATH/PRAnalyser.py \
           --repo ${{ github.workspace }} \
           --base $BASE_SHA \
           --head $HEAD_SHA \
           --threshold ${{ inputs.threshold }} \
           --exclude ${{ inputs.exclude }} \
-          --output json > /tmp/analysis.json
+          --output json 2>&1 | tee /tmp/analysis_output.txt
+
+        # Check if output is valid JSON
+        if python -c "import json; json.load(open('/tmp/analysis_output.txt'))" 2>/dev/null; then
+          cp /tmp/analysis_output.txt /tmp/analysis.json
+        else
+          echo "Analysis did not produce valid JSON. Output was:"
+          cat /tmp/analysis_output.txt
+          # Create a default result
+          echo '{"status":"error","message":"Analysis failed","summary":{"duplicate_count":0},"duplicates":[]}' > /tmp/analysis.json
+        fi
 
         # Extract duplicate count
         DUPLICATES=$(python -c "import json; print(json.load(open('/tmp/analysis.json'))['summary']['duplicate_count'])")
@@ -87,7 +100,7 @@ runs:
           --head $HEAD_SHA \
           --threshold ${{ inputs.threshold }} \
           --exclude ${{ inputs.exclude }} \
-          --output github > /tmp/analysis.md
+          --output github 2>&1 | tee /tmp/analysis.md
 
         # Store as output (with delimiter for multiline)
         echo "analysis<<EOF" >> $GITHUB_OUTPUT
