@@ -38,9 +38,19 @@ runs:
       with:
         python-version: '3.11'
 
+    - name: Free disk space
+      shell: bash
+      run: |
+        # Remove unnecessary tools to free space
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf /usr/local/share/boost
+
     - name: Install dependencies
       shell: bash
       run: |
+        # Install CPU-only torch to save space
+        pip install torch --index-url https://download.pytorch.org/whl/cpu
         pip install sentence-transformers tree-sitter tree-sitter-c tree-sitter-cpp scikit-learn numpy
 
     - name: Fetch base branch
