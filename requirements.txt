@@ -1,4 +1,6 @@
 sentence-transformers
 tree_sitter
+tree-sitter-c
+tree-sitter-cpp
 numpy
-faiss
+scikit-learn

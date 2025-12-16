@@ -7,13 +7,37 @@ from sklearn.metrics.pairwise import cosine_similarity
 from pathlib import Path
 import json
 from datetime import datetime
+import os
+import torch
+import re
 
 
 class SSCDAnalyser:
-    def __init__(self, model_name='mchochlov/codebert-base-cd-ft', threshold=0.95, minimum_block_size=80):
-        self.model = SentenceTransformer(model_name)
+    def __init__(self, model_name='mchochlov/codebert-base-cd-ft', threshold=0.95, minimum_block_size=80,
+                 max_threads=None, encode_batch_size=32, similarity_batch_size=500, device='cpu'):
+        """
+        Args:
+            model_name: HuggingFace model for code embeddings
+            threshold: Similarity threshold for duplicate detection (0-1)
+            minimum_block_size: Minimum code block size in characters
+            max_threads: Limit CPU threads (default: all cores). Set lower to reduce resource usage.
+            encode_batch_size: Batch size for encoding (default 32). Lower = less memory.
+            similarity_batch_size: Batch size for similarity computation (default 500). Lower = less memory.
+            device: Device to run model on ('cpu' or 'mps'). Default 'cpu' to avoid GPU memory issues.
+        """
+        # Limit threads if specified
+        self.max_threads = max_threads
+        if max_threads is not None:
+            os.environ["OMP_NUM_THREADS"] = str(max_threads)
+            os.environ["MKL_NUM_THREADS"] = str(max_threads)
+            torch.set_num_threads(max_threads)
+
+        self.device = device
+        self.model = SentenceTransformer(model_name, device=device)
         self.threshold = threshold
         self.minimum_block_size = minimum_block_size
+        self.encode_batch_size = encode_batch_size
+        self.similarity_batch_size = similarity_batch_size
 
         self.c_language = Language(tsc.language())
         self.cpp_language = Language(tscpp.language())
@@ -89,22 +113,22 @@ class SSCDAnalyser:
 
         return all_blocks
 
-    def find_duplicates(self, blocks, batch_size=1000):
+    def find_duplicates(self, blocks):
         """Find duplicates using sklearn cosine_similarity"""
         if not blocks:
             return []
 
         codes = [b['code'] for b in blocks]
         print(f"Encoding {len(codes)} code blocks...")
-        embeddings = self.model.encode(codes, show_progress_bar=True, batch_size=32)
+        embeddings = self.model.encode(codes, show_progress_bar=True, batch_size=self.encode_batch_size)
 
         print("Computing similarity matrix...")
         duplicates = []
         seen = set()
 
         n = len(blocks)
-        for i in range(0, n, batch_size):
-            end_i = min(i + batch_size, n)
+        for i in range(0, n, self.similarity_batch_size):
+            end_i = min(i + self.similarity_batch_size, n)
 
             batch_similarities = cosine_similarity(embeddings[i:end_i], embeddings)
 
@@ -127,8 +151,14 @@ class SSCDAnalyser:
                     pair = tuple(sorted([global_idx, neighbor_idx]))
                     if pair not in seen:
                         seen.add(pair)
+                        clone_type = self.classify_clone_type(
+                            blocks[global_idx]['code'],
+                            blocks[neighbor_idx]['code'],
+                            similarity
+                        )
                         duplicates.append({
                             'similarity': float(similarity),
+                            'clone_type': clone_type,
                             'block1': blocks[global_idx],
                             'block2': blocks[neighbor_idx]
                         })
@@ -137,6 +167,88 @@ class SSCDAnalyser:
 
         duplicates.sort(key=lambda x: x['similarity'], reverse=True)
         return duplicates
+
+    def normalize_code(self, code):
+        """Remove whitespace and comments for T1 comparison."""
+        # Remove single-line comments
+        code = re.sub(r'//.*', '', code)
+        # Remove multi-line comments
+        code = re.sub(r'/\*.*?\*/', '', code, flags=re.DOTALL)
+        # Normalize whitespace
+        code = re.sub(r'\s+', ' ', code).strip()
+        return code
+
+    def tokenize_code(self, code):
+        """Extract token sequence for T2 comparison (normalize identifiers)."""
+        # Remove comments first
+        code = re.sub(r'//.*', '', code)
+        code = re.sub(r'/\*.*?\*/', '', code, flags=re.DOTALL)
+
+        # C/C++ keywords and types to preserve
+        keywords = {
+            'if', 'else', 'while', 'for', 'do', 'switch', 'case', 'break', 'continue',
+            'return', 'goto', 'typedef', 'struct', 'union', 'enum', 'class', 'public',
+            'private', 'protected', 'virtual', 'static', 'const', 'volatile', 'extern',
+            'inline', 'template', 'typename', 'namespace', 'using', 'try', 'catch',
+            'throw', 'new', 'delete', 'sizeof', 'void', 'int', 'char', 'float', 'double',
+            'long', 'short', 'unsigned', 'signed', 'bool', 'true', 'false', 'nullptr',
+            'auto', 'register', 'default'
+        }
+
+        # Tokenize: split on non-alphanumeric, keep operators
+        tokens = re.findall(r'[a-zA-Z_]\w*|[0-9]+|[^\s\w]', code)
+
+        # Normalize: replace non-keyword identifiers with placeholders
+        normalized = []
+        id_map = {}
+        id_counter = 0
+
+        for token in tokens:
+            if token in keywords or not re.match(r'^[a-zA-Z_]', token):
+                normalized.append(token)
+            else:
+                # It's an identifier - normalize it
+                if token not in id_map:
+                    id_map[token] = f'ID{id_counter}'
+                    id_counter += 1
+                normalized.append(id_map[token])
+
+        return normalized
+
+    def classify_clone_type(self, code1, code2, semantic_similarity):
+        """
+        Classify clone pair into Type 1-4.
+
+        T1: Exact (after whitespace/comment normalization)
+        T2: Renamed identifiers (same token structure)
+        T3: Near-miss (some statements added/removed/modified)
+        T4: Semantic only (different structure, same meaning)
+        """
+        # T1: Exact match after normalization
+        norm1 = self.normalize_code(code1)
+        norm2 = self.normalize_code(code2)
+        if norm1 == norm2:
+            return 'T1'
+
+        # T2: Same structure with renamed identifiers
+        tokens1 = self.tokenize_code(code1)
+        tokens2 = self.tokenize_code(code2)
+        if tokens1 == tokens2:
+            return 'T2'
+
+        # T3 vs T4: Based on token similarity
+        # Calculate token-level similarity (Jaccard or sequence matching)
+        if len(tokens1) > 0 and len(tokens2) > 0:
+            # Use sequence matcher for ordered similarity
+            from difflib import SequenceMatcher
+            token_similarity = SequenceMatcher(None, tokens1, tokens2).ratio()
+
+            # T3: High token similarity (>0.7) but not identical
+            if token_similarity > 0.7:
+                return 'T3'
+
+        # T4: Semantic similarity only (caught by embeddings, but different structure)
+        return 'T4'
 
     def compute_metrics(self, duplicates, blocks):
         """Calculate duplication metrics"""
@@ -147,12 +259,19 @@ class SSCDAnalyser:
             duplicate_blocks.add(d['block1']['file'] + str(d['block1']['start_line']))
             duplicate_blocks.add(d['block2']['file'] + str(d['block2']['start_line']))
 
+        # Count clone types
+        clone_type_counts = {'T1': 0, 'T2': 0, 'T3': 0, 'T4': 0}
+        for d in duplicates:
+            clone_type = d.get('clone_type', 'T4')
+            clone_type_counts[clone_type] += 1
+
         metrics = {
             'total_blocks': total_blocks,
             'duplicate_pairs': len(duplicates),
             'duplicate_blocks': len(duplicate_blocks),
             'duplication_ratio': len(duplicate_blocks) / total_blocks if total_blocks > 0 else 0,
-            'avg_similarity': float(np.mean([d['similarity'] for d in duplicates])) if duplicates else 0
+            'avg_similarity': float(np.mean([d['similarity'] for d in duplicates])) if duplicates else 0,
+            'clone_types': clone_type_counts
         }
 
         return metrics
@@ -200,6 +319,7 @@ class SSCDAnalyser:
             'top_duplicates': [
                 {
                     'similarity': d['similarity'],
+                    'clone_type': d.get('clone_type', 'T4'),
                     'file1': d['block1']['file'],
                     'file2': d['block2']['file'],
                     'lines1': f"{d['block1']['start_line']}-{d['block1']['end_line']}",
