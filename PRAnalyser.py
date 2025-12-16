@@ -114,6 +114,9 @@ class PRAnalyser:
         """
         Analyse a PR for introduced code duplication.
 
+        Compares functions in changed files against the ENTIRE codebase (HEAD version),
+        to find if new/modified code duplicates anything anywhere in the project.
+
         Args:
             repo_path: Path to git repository
             base: Base branch (e.g., 'main')
@@ -126,98 +129,132 @@ class PRAnalyser:
         """
         print(f"Analysing PR: {base}...{head}", file=sys.stderr)
 
-        # Get functions changed in PR
-        changed_blocks = self.get_changed_functions(repo_path, base, head)
-        if not changed_blocks:
+        # Get list of changed files
+        changed_files = self.get_changed_files(repo_path, base, head)
+        if not changed_files:
             return {
                 'status': 'success',
-                'message': 'No C/C++ function changes detected',
+                'message': 'No C/C++ file changes detected',
                 'duplicates': [],
                 'summary': {'total_changed_functions': 0}
             }
 
-        print(f"Extracted {len(changed_blocks)} functions from changed files", file=sys.stderr)
+        print(f"Found {len(changed_files)} changed C/C++ files", file=sys.stderr)
 
-        # Get baseline (or use provided cache)
-        if baseline_blocks is None:
-            print("Scanning baseline codebase...", file=sys.stderr)
-            baseline_blocks = self.get_baseline_blocks(repo_path, base, excluded_paths)
+        # Scan the ENTIRE codebase at HEAD (current state)
+        print("Scanning entire codebase...", file=sys.stderr)
+        repo = Path(repo_path).resolve()
+        all_blocks = self.analyser.scan_codebase(str(repo), excluded_paths or [])
 
-        if not baseline_blocks:
+        if not all_blocks:
             return {
                 'status': 'success',
-                'message': 'No baseline code to compare against',
+                'message': 'No code blocks found in codebase',
                 'duplicates': [],
-                'summary': {'total_changed_functions': len(changed_blocks)}
+                'summary': {'total_changed_functions': 0}
             }
 
-        print(f"Comparing against {len(baseline_blocks)} baseline functions", file=sys.stderr)
+        print(f"Found {len(all_blocks)} total functions in codebase", file=sys.stderr)
 
-        # Encode both sets
-        changed_codes = [b['code'] for b in changed_blocks]
-        baseline_codes = [b['code'] for b in baseline_blocks]
+        # Identify which blocks are from changed files
+        changed_file_set = set(str(repo / f) for f in changed_files)
+        changed_blocks = [b for b in all_blocks if b['file'] in changed_file_set]
+        other_blocks = [b for b in all_blocks if b['file'] not in changed_file_set]
 
-        print("Encoding changed functions...", file=sys.stderr)
-        changed_embeddings = self.analyser.model.encode(
-            changed_codes,
+        print(f"  - {len(changed_blocks)} functions in changed files", file=sys.stderr)
+        print(f"  - {len(other_blocks)} functions in other files", file=sys.stderr)
+
+        if not changed_blocks:
+            return {
+                'status': 'success',
+                'message': 'No functions found in changed files',
+                'duplicates': [],
+                'summary': {'total_changed_functions': 0}
+            }
+
+        # Encode all blocks
+        print("Encoding all functions...", file=sys.stderr)
+        all_codes = [b['code'] for b in all_blocks]
+        all_embeddings = self.analyser.model.encode(
+            all_codes,
             show_progress_bar=False,
             batch_size=self.analyser.encode_batch_size
         )
 
-        print("Encoding baseline functions...", file=sys.stderr)
-        baseline_embeddings = self.analyser.model.encode(
-            baseline_codes,
-            show_progress_bar=False,
-            batch_size=self.analyser.encode_batch_size
-        )
+        # Create index mapping
+        block_to_idx = {id(b): i for i, b in enumerate(all_blocks)}
 
-        # Compare changed against baseline
+        # Compare changed functions against ALL other functions
         from sklearn.metrics.pairwise import cosine_similarity
         import numpy as np
 
         print("Computing similarities...", file=sys.stderr)
-        similarities = cosine_similarity(changed_embeddings, baseline_embeddings)
+
+        changed_indices = [block_to_idx[id(b)] for b in changed_blocks]
+        changed_embeddings = all_embeddings[changed_indices]
+
+        # Compare against entire codebase
+        similarities = cosine_similarity(changed_embeddings, all_embeddings)
 
         # Find duplicates
         duplicates = []
+        seen_pairs = set()
+
         for i, changed_block in enumerate(changed_blocks):
+            changed_idx = changed_indices[i]
             top_indices = np.argsort(similarities[i])[::-1]
 
-            for j in top_indices[:5]:  # Top 5 matches
+            for j in top_indices[:10]:  # Top 10 matches
                 sim = similarities[i][j]
                 if sim < self.threshold:
                     break
 
-                baseline_block = baseline_blocks[j]
+                # Skip self-comparison
+                if j == changed_idx:
+                    continue
 
-                # Skip if same file (likely same function before/after)
-                if Path(changed_block['file']).name == Path(baseline_block['file']).name:
+                other_block = all_blocks[j]
+
+                # Skip if same file
+                if changed_block['file'] == other_block['file']:
                     continue
 
                 # Skip if too small
                 if changed_block['size'] < self.analyser.minimum_block_size:
                     continue
+                if other_block['size'] < self.analyser.minimum_block_size:
+                    continue
+
+                # Avoid duplicate pairs
+                pair_key = tuple(sorted([changed_idx, j]))
+                if pair_key in seen_pairs:
+                    continue
+                seen_pairs.add(pair_key)
 
                 clone_type = self.analyser.classify_clone_type(
                     changed_block['code'],
-                    baseline_block['code'],
+                    other_block['code'],
                     sim
                 )
+
+                # Determine if the match is in changed files or existing code
+                is_match_in_pr = other_block['file'] in changed_file_set
 
                 duplicates.append({
                     'similarity': float(sim),
                     'clone_type': clone_type,
+                    'within_pr': is_match_in_pr,  # True if both files are in the PR
                     'new_code': {
-                        'file': changed_block.get('pr_file', changed_block['file']),
+                        'file': str(Path(changed_block['file']).relative_to(repo)),
                         'lines': f"{changed_block['start_line']}-{changed_block['end_line']}",
                         'size': changed_block['size'],
                         'preview': changed_block['code'][:200] + '...' if len(changed_block['code']) > 200 else changed_block['code']
                     },
                     'existing_code': {
-                        'file': baseline_block['file'],
-                        'lines': f"{baseline_block['start_line']}-{baseline_block['end_line']}",
-                        'size': baseline_block['size'],
-                        'preview': baseline_block['code'][:200] + '...' if len(baseline_block['code']) > 200 else baseline_block['code']
+                        'file': str(Path(other_block['file']).relative_to(repo)),
+                        'lines': f"{other_block['start_line']}-{other_block['end_line']}",
+                        'size': other_block['size'],
+                        'preview': other_block['code'][:200] + '...' if len(other_block['code']) > 200 else other_block['code']
                     }
                 })
 
@@ -226,16 +263,25 @@ class PRAnalyser:
 
         # Compute summary
         clone_type_counts = {'T1': 0, 'T2': 0, 'T3': 0, 'T4': 0}
+        within_pr_count = 0
+        against_existing_count = 0
+
         for d in duplicates:
             clone_type_counts[d['clone_type']] += 1
+            if d.get('within_pr', False):
+                within_pr_count += 1
+            else:
+                against_existing_count += 1
 
         return {
             'status': 'success' if not duplicates else 'warning',
             'message': f"Found {len(duplicates)} potential duplications" if duplicates else "No duplications detected",
             'summary': {
+                'total_functions_in_codebase': len(all_blocks),
                 'total_changed_functions': len(changed_blocks),
-                'total_baseline_functions': len(baseline_blocks),
                 'duplicate_count': len(duplicates),
+                'duplicates_within_pr': within_pr_count,
+                'duplicates_against_existing': against_existing_count,
                 'clone_types': clone_type_counts
             },
             'duplicates': duplicates[:20]  # Top 20 for CI output
@@ -246,18 +292,24 @@ class PRAnalyser:
         if result['status'] == 'success' and not result['duplicates']:
             return "✅ **No code duplication detected in this PR**"
 
+        summary = result['summary']
         lines = [
             "## 🔍 Code Duplication Analysis",
             "",
-            f"Found **{result['summary']['duplicate_count']}** potential duplications",
+            f"Scanned **{summary.get('total_functions_in_codebase', 'N/A')}** functions in codebase, "
+            f"**{summary['total_changed_functions']}** in this PR.",
+            "",
+            f"Found **{summary['duplicate_count']}** potential duplications:",
+            f"- **{summary.get('duplicates_against_existing', 0)}** match existing code in the codebase",
+            f"- **{summary.get('duplicates_within_pr', 0)}** are within this PR's changed files",
             "",
             "### Clone Type Breakdown",
             "| Type | Count | Description |",
             "|------|-------|-------------|",
-            f"| T1 | {result['summary']['clone_types']['T1']} | Exact copy |",
-            f"| T2 | {result['summary']['clone_types']['T2']} | Renamed identifiers |",
-            f"| T3 | {result['summary']['clone_types']['T3']} | Modified statements |",
-            f"| T4 | {result['summary']['clone_types']['T4']} | Semantic similarity |",
+            f"| T1 | {summary['clone_types']['T1']} | Exact copy |",
+            f"| T2 | {summary['clone_types']['T2']} | Renamed identifiers |",
+            f"| T3 | {summary['clone_types']['T3']} | Modified statements |",
+            f"| T4 | {summary['clone_types']['T4']} | Semantic similarity |",
             "",
         ]
 
@@ -268,9 +320,10 @@ class PRAnalyser:
             ])
 
             for i, dup in enumerate(result['duplicates'][:5], 1):
+                location_tag = "📁 within PR" if dup.get('within_pr', False) else "📦 existing code"
                 lines.extend([
                     f"<details>",
-                    f"<summary><b>{i}. {dup['clone_type']}</b> - {dup['similarity']:.1%} similarity</summary>",
+                    f"<summary><b>{i}. {dup['clone_type']}</b> - {dup['similarity']:.1%} similarity ({location_tag})</summary>",
                     "",
                     f"**New code** in `{dup['new_code']['file']}` (lines {dup['new_code']['lines']})",
                     "```cpp",
