@@ -239,11 +239,27 @@ class IncrementalTracker:
         }
 
     def _ensure_repo(self, repo_url: str, repo_name: str) -> Path:
-        """Clone repo if not exists."""
+        """Clone repo if not exists or is bare."""
         repo_path = self.clone_dir / repo_name
+        needs_clone = False
+
         if not repo_path.exists():
+            needs_clone = True
+        else:
+            # Check if it's a bare repo (no working directory)
+            result = subprocess.run(
+                ["git", "-C", str(repo_path), "config", "--get", "core.bare"],
+                capture_output=True, text=True
+            )
+            if result.stdout.strip() == "true":
+                print(f"Removing bare repo {repo_name}...")
+                shutil.rmtree(repo_path)
+                needs_clone = True
+
+        if needs_clone:
             print(f"Cloning {repo_name}...")
             clone_repo(repo_url, str(repo_path))
+
         return repo_path
 
     def save_history(self, history: dict, output_file: str):
