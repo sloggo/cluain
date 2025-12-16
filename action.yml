@@ -1,0 +1,123 @@
+name: 'Cluain Clone Detection'
+description: 'Detect semantic code duplication in C/C++ pull requests'
+author: 'joshsloggett'
+
+branding:
+  icon: 'copy'
+  color: 'blue'
+
+inputs:
+  threshold:
+    description: 'Similarity threshold (0.0-1.0)'
+    required: false
+    default: '0.95'
+  exclude:
+    description: 'Paths to exclude (space-separated)'
+    required: false
+    default: '/tests /test /bench /examples /docs'
+  fail-on-duplicates:
+    description: 'Fail the check if duplicates are found'
+    required: false
+    default: 'false'
+  comment-on-pr:
+    description: 'Post analysis as PR comment'
+    required: false
+    default: 'true'
+
+outputs:
+  duplicate-count:
+    description: 'Number of duplicates found'
+  analysis:
+    description: 'Full analysis in markdown format'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        pip install sentence-transformers tree-sitter tree-sitter-c tree-sitter-cpp scikit-learn numpy
+
+    - name: Run analysis
+      id: analyse
+      shell: bash
+      env:
+        CLUAIN_PATH: ${{ github.action_path }}
+      run: |
+        python $CLUAIN_PATH/PRAnalyser.py \
+          --repo ${{ github.workspace }} \
+          --base ${{ github.event.pull_request.base.ref }} \
+          --head ${{ github.event.pull_request.head.ref }} \
+          --threshold ${{ inputs.threshold }} \
+          --exclude ${{ inputs.exclude }} \
+          --output json > /tmp/analysis.json
+
+        # Extract duplicate count
+        DUPLICATES=$(python -c "import json; print(json.load(open('/tmp/analysis.json'))['summary']['duplicate_count'])")
+        echo "duplicate-count=$DUPLICATES" >> $GITHUB_OUTPUT
+
+        # Generate markdown
+        python $CLUAIN_PATH/PRAnalyser.py \
+          --repo ${{ github.workspace }} \
+          --base ${{ github.event.pull_request.base.ref }} \
+          --head ${{ github.event.pull_request.head.ref }} \
+          --threshold ${{ inputs.threshold }} \
+          --exclude ${{ inputs.exclude }} \
+          --output github > /tmp/analysis.md
+
+        # Store as output (with delimiter for multiline)
+        echo "analysis<<EOF" >> $GITHUB_OUTPUT
+        cat /tmp/analysis.md >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+        # Also write to job summary
+        cat /tmp/analysis.md >> $GITHUB_STEP_SUMMARY
+
+    - name: Comment on PR
+      if: inputs.comment-on-pr == 'true' && github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const analysis = fs.readFileSync('/tmp/analysis.md', 'utf8');
+
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+
+          const botComment = comments.find(c =>
+            c.user.type === 'Bot' && c.body.includes('Code Duplication Analysis')
+          );
+
+          if (botComment) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: botComment.id,
+              body: analysis
+            });
+          } else {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: analysis
+            });
+          }
+
+    - name: Check threshold
+      if: inputs.fail-on-duplicates == 'true'
+      shell: bash
+      run: |
+        DUPLICATES=${{ steps.analyse.outputs.duplicate-count }}
+        if [ "$DUPLICATES" -gt 0 ]; then
+          echo "::error::Found $DUPLICATES code duplications"
+          exit 1
+        fi

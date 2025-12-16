@@ -1,0 +1,36 @@
+# Example workflow for using Cluain in your repository
+# Copy this to your repo's .github/workflows/ directory
+
+name: Clone Detection
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - '**.c'
+      - '**.cpp'
+      - '**.cc'
+      - '**.cxx'
+      - '**.h'
+      - '**.hpp'
+      - '**.hxx'
+
+jobs:
+  detect-clones:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Need full history for git diff
+
+      - name: Run Cluain
+        uses: sloggo/cluain@main
+        with:
+          threshold: '0.95'
+          exclude: '/tests /test /bench /examples'
+          comment-on-pr: 'true'
+          fail-on-duplicates: 'false'  # Set to 'true' to block PRs with duplicates
