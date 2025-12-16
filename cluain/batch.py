@@ -2,11 +2,15 @@
 Batch analysis - run historical analysis on multiple repositories.
 """
 
+import os
 import csv
 import json
 from pathlib import Path
 from datetime import datetime
 from concurrent.futures import ProcessPoolExecutor, as_completed
+
+# Disable tokenizers parallelism warning when forking
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 from .historical import HistoricalTracker
 
