@@ -15,12 +15,13 @@ pip install -r requirements.txt
 
 ```
 cluain/
-├── __init__.py      # Package exports: Analyser, PRAnalyser
+├── __init__.py      # Package exports: Analyser, PRAnalyser, HistoricalTracker
 ├── parser.py        # Tree-sitter C/C++ function extraction
 ├── embeddings.py    # CodeBERT embedding generation
 ├── similarity.py    # Cosine similarity & clone classification (T1-T4)
 ├── analyser.py      # Main codebase analysis orchestration
 ├── pr_analyser.py   # PR/CI-specific analysis
+├── historical.py    # Historical tracking over git commits
 ├── git_utils.py     # Git operations (diff, worktree, clone)
 ├── formatters.py    # Output formatting (JSON, GitHub, CI)
 └── cli.py           # Command-line interface
@@ -59,8 +60,14 @@ cluain/
 - `format_github_comment()`: Markdown for PR comments
 - `format_ci_output()`: Console-friendly output
 
+### historical.py
+- `HistoricalTracker`: Track duplication over git history
+- Analyses monthly snapshots using git worktrees
+- Parallel processing with configurable workers
+
 ### git_utils.py
 - `get_changed_files()`: Files changed between commits
+- `get_monthly_commits()`: First commit of each month for N years
 - `create_worktree()`: Create worktree for historical analysis
 - `clone_repo()`: Clone repositories
 
@@ -85,6 +92,29 @@ python -m cluain.cli --repo . --base main --head feature --output github
   with:
     threshold: '0.95'
     comment-on-pr: 'true'
+```
+
+### Historical Analysis
+```python
+from cluain import HistoricalTracker
+
+config = {
+    'threshold': 0.95,
+    'minimum_block_size': 150,
+    'device': 'cpu',
+    'max_threads': 4,
+    'encode_batch_size': 32,
+    'similarity_batch_size': 500
+}
+
+tracker = HistoricalTracker(config, clone_dir="./repos", workers=2)
+history = tracker.track_repository(
+    repo_name="myrepo",
+    repo_url="github.com/user/myrepo",
+    excluded_paths=["/tests"],
+    years=3
+)
+tracker.save_history(history, "history.json")
 ```
 
 ## Clone Types

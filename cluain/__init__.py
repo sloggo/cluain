@@ -7,6 +7,7 @@ using CodeBERT embeddings.
 
 from .analyser import Analyser
 from .pr_analyser import PRAnalyser
+from .historical import HistoricalTracker
 
 __version__ = "0.1.0"
-__all__ = ["Analyser", "PRAnalyser"]
+__all__ = ["Analyser", "PRAnalyser", "HistoricalTracker"]
