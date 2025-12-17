@@ -8,7 +8,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
 
-# C/C++ keywords to preserve during tokenization
 KEYWORDS = {
     'if', 'else', 'while', 'for', 'do', 'switch', 'case', 'break', 'continue',
     'return', 'goto', 'typedef', 'struct', 'union', 'enum', 'class', 'public',
@@ -68,17 +67,14 @@ def classify_clone_type(code1: str, code2: str) -> str:
     T3: Near-miss (some statements added/removed/modified)
     T4: Semantic only (different structure, same meaning)
     """
-    # T1: Exact match after normalization
     if normalize_code(code1) == normalize_code(code2):
         return 'T1'
 
-    # T2: Same structure with renamed identifiers
     tokens1 = tokenize_code(code1)
     tokens2 = tokenize_code(code2)
     if tokens1 == tokens2:
         return 'T2'
 
-    # T3 vs T4: Based on token similarity
     if tokens1 and tokens2:
         token_similarity = SequenceMatcher(None, tokens1, tokens2).ratio()
         if token_similarity > 0.7:

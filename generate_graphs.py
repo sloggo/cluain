@@ -26,7 +26,6 @@ def plot_repo_history(history: dict, output_path: Path):
         print(f"  No snapshots for {repo_name}, skipping")
         return
 
-    # Extract data
     dates = []
     t1_counts = []
     t2_counts = []
@@ -53,11 +52,9 @@ def plot_repo_history(history: dict, output_path: Path):
         print(f"  No valid data for {repo_name}, skipping")
         return
 
-    # Create figure with two subplots
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10), sharex=True)
     fig.suptitle(f'{repo_name} - Code Clone Analysis Over Time', fontsize=14, fontweight='bold')
 
-    # Plot 1: Clone types stacked area
     ax1.stackplot(dates, t1_counts, t2_counts, t3_counts, t4_counts,
                   labels=['T1 (Exact)', 'T2 (Renamed)', 'T3 (Near-miss)', 'T4 (Semantic)'],
                   colors=['#2ecc71', '#3498db', '#f39c12', '#e74c3c'],
@@ -67,15 +64,12 @@ def plot_repo_history(history: dict, output_path: Path):
     ax1.grid(True, alpha=0.3)
     ax1.set_title('Clone Types Over Time')
 
-    # Plot 2: Total blocks and duplication ratio
     ax2_twin = ax2.twinx()
 
-    # Total blocks
     ax2.plot(dates, total_blocks, 'b-', linewidth=2, label='Total Functions')
     ax2.set_ylabel('Total Functions', color='blue')
     ax2.tick_params(axis='y', labelcolor='blue')
 
-    # Duplication ratio
     dup_ratios = []
     for snap in snapshots:
         metrics = snap.get('metrics', {})
@@ -92,12 +86,10 @@ def plot_repo_history(history: dict, output_path: Path):
     ax2.grid(True, alpha=0.3)
     ax2.set_title('Codebase Size and Duplication Ratio')
 
-    # Format x-axis
     ax2.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
     ax2.xaxis.set_major_locator(mdates.MonthLocator(interval=3))
     plt.xticks(rotation=45)
 
-    # Combine legends
     lines1, labels1 = ax2.get_legend_handles_labels()
     lines2, labels2 = ax2_twin.get_legend_handles_labels()
     ax2.legend(lines1 + lines2, labels1 + labels2, loc='upper left')
@@ -115,7 +107,6 @@ def main():
         print("Error: results/ directory not found")
         sys.exit(1)
 
-    # Find all history JSON files
     history_files = list(results_dir.glob('*_history.json'))
 
     if not history_files:

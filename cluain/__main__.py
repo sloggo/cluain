@@ -18,7 +18,6 @@ def main():
 
     command = sys.argv[1]
 
-    # Remove the command from argv so subcommand parsers work correctly
     sys.argv = [sys.argv[0]] + sys.argv[2:]
 
     if command == 'pr':

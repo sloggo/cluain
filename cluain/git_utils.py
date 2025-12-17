@@ -73,7 +73,6 @@ def create_worktree(repo_path: str, commit: str, worktree_path: str) -> bool:
     Returns:
         True if successful
     """
-    # Clean up any existing worktree
     subprocess.run(
         ["git", "-C", repo_path, "worktree", "remove", "--force", worktree_path],
         capture_output=True, text=True
@@ -83,7 +82,6 @@ def create_worktree(repo_path: str, commit: str, worktree_path: str) -> bool:
         capture_output=True, text=True
     )
 
-    # Create new worktree
     result = subprocess.run(
         ["git", "-C", repo_path, "worktree", "add", "--detach", worktree_path, commit],
         capture_output=True, text=True
@@ -157,7 +155,6 @@ def get_monthly_commits(repo_path: str, years: int = 5) -> list:
         except ValueError:
             continue
 
-    # Take earliest commit from each month
     monthly_commits = []
     for month_key in sorted(commits_by_month.keys()):
         month_commits = sorted(commits_by_month[month_key], key=lambda x: x["date"])

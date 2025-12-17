@@ -60,7 +60,6 @@ class IncrementalTracker:
         if not commits:
             return history
 
-        # Cache: file_path -> (hash, block, embedding)
         block_cache = {}
         embedding_cache = {}
 
@@ -92,38 +91,32 @@ class IncrementalTracker:
         """Analyse a single commit, reusing cached data where possible."""
         commit = commit_info['commit']
 
-        # Checkout this commit
         subprocess.run(
             ["git", "-C", str(repo_path), "checkout", "-f", commit],
             capture_output=True, text=True
         )
 
         if prev_commit is None:
-            # First commit - full scan
             print("  Full scan (first commit)")
             blocks = self.parser.scan_directory(str(repo_path), excluded_paths)
 
             if not blocks:
                 return self._empty_snapshot(commit_info)
 
-            # Cache all blocks with file content hash
             for block in blocks:
                 file_hash = self._hash_file(block['file'])
                 cache_key = (block['file'], block['start_line'])
                 block_cache[cache_key] = (file_hash, block)
 
-            # Encode all
             embeddings = self.embedder.encode_blocks(blocks, show_progress=True)
             for idx, block in enumerate(blocks):
                 cache_key = (block['file'], block['start_line'])
                 embedding_cache[cache_key] = embeddings[idx]
 
         else:
-            # Get changed files
             changed_files = self._get_changed_files(repo_path, prev_commit, commit)
             print(f"  {len(changed_files)} files changed")
 
-            # Invalidate cache for changed files
             changed_file_set = set(str(repo_path / f) for f in changed_files)
             keys_to_remove = [k for k in block_cache if k[0] in changed_file_set]
             for k in keys_to_remove:
@@ -131,7 +124,6 @@ class IncrementalTracker:
                 if k in embedding_cache:
                     del embedding_cache[k]
 
-            # Scan changed files only
             new_blocks = []
             for changed_file in changed_files:
                 full_path = repo_path / changed_file
@@ -143,7 +135,6 @@ class IncrementalTracker:
                         block_cache[cache_key] = (file_hash, block)
                         new_blocks.append((cache_key, block))
 
-            # Encode only new blocks
             if new_blocks:
                 print(f"  Encoding {len(new_blocks)} new/changed functions")
                 new_codes = [b[1]['code'] for b in new_blocks]
@@ -151,20 +142,17 @@ class IncrementalTracker:
                 for idx, (cache_key, _) in enumerate(new_blocks):
                     embedding_cache[cache_key] = new_embeddings[idx]
 
-            # Rebuild full block list from cache
             blocks = [data[1] for data in block_cache.values()]
 
         if not blocks:
             return self._empty_snapshot(commit_info)
 
-        # Rebuild embeddings array from cache
         embeddings = np.array([
             embedding_cache[(b['file'], b['start_line'])]
             for b in blocks
             if (b['file'], b['start_line']) in embedding_cache
         ])
 
-        # Filter blocks to match embeddings
         blocks = [
             b for b in blocks
             if (b['file'], b['start_line']) in embedding_cache
@@ -173,7 +161,6 @@ class IncrementalTracker:
         if len(blocks) == 0:
             return self._empty_snapshot(commit_info)
 
-        # Find duplicates
         duplicates = find_duplicates(
             blocks, embeddings,
             threshold=self.threshold,
@@ -246,7 +233,6 @@ class IncrementalTracker:
         if not repo_path.exists():
             needs_clone = True
         else:
-            # Check if it's a bare repo (no working directory)
             result = subprocess.run(
                 ["git", "-C", str(repo_path), "config", "--get", "core.bare"],
                 capture_output=True, text=True

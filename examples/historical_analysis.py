@@ -5,7 +5,6 @@ Example: Track code duplication history over time.
 from cluain import HistoricalTracker
 
 if __name__ == "__main__":
-    # Configuration for the analyser
     config = {
         'threshold': 0.95,
         'minimum_block_size': 150,
@@ -30,7 +29,6 @@ if __name__ == "__main__":
 
     tracker.save_history(history, "spdlog_history.json")
 
-    # Print summary
     print("\n=== Summary ===")
     for snapshot in history['snapshots'][-5:]:
         metrics = snapshot['metrics']

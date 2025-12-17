@@ -9,7 +9,6 @@ from pathlib import Path
 from datetime import datetime
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
-# Disable tokenizers parallelism warning when forking
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 from .historical import HistoricalTracker
@@ -19,7 +18,6 @@ def _analyse_repo_incremental(args):
     """Worker function to analyse a single repo incrementally (runs in subprocess)."""
     repo, config, clone_dir, output_dir, years, excluded_paths = args
 
-    # Import here to avoid pickling issues
     from cluain.incremental import IncrementalTracker
 
     try:
@@ -125,7 +123,6 @@ def run_batch_analysis(
     }
 
     if fast and workers > 1:
-        # Parallel processing - each repo in its own process
         print(f"Running {len(repos)} repos in parallel with {workers} workers...")
         tasks = [
             (repo, config, clone_dir, str(output_path), years, excluded_paths)
@@ -142,7 +139,6 @@ def run_batch_analysis(
                 status = "✓" if result['status'] == 'success' else "✗"
                 print(f"[{status}] {repo['name']}: {result.get('snapshots', 0)} snapshots")
     else:
-        # Sequential processing
         if fast:
             from .incremental import IncrementalTracker
             tracker = IncrementalTracker(config, clone_dir=clone_dir)
@@ -182,7 +178,6 @@ def run_batch_analysis(
 
     summary['completed_at'] = datetime.now().isoformat()
 
-    # Save summary
     summary_file = output_path / "batch_summary.json"
     with open(summary_file, 'w') as f:
         json.dump(summary, f, indent=2)

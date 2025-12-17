@@ -42,7 +42,6 @@ class PRAnalyser:
 
         self._log(f"Found {len(changed_files)} changed C/C++ files")
 
-        # Scan entire codebase
         self._log("Scanning entire codebase...")
         repo = Path(repo_path).resolve()
         all_blocks = self.parser.scan_directory(str(repo), excluded_paths or [])
@@ -52,7 +51,6 @@ class PRAnalyser:
 
         self._log(f"Found {len(all_blocks)} total functions")
 
-        # Split blocks into changed vs other
         changed_file_set = set(str(repo / f) for f in changed_files)
         changed_blocks = [b for b in all_blocks if b['file'] in changed_file_set]
 
@@ -61,7 +59,6 @@ class PRAnalyser:
         if not changed_blocks:
             return self._empty_result("No functions found in changed files")
 
-        # Find duplicates
         duplicates = self._find_pr_duplicates(
             all_blocks, changed_blocks, changed_file_set, repo
         )

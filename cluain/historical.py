@@ -18,7 +18,6 @@ def _analyse_commit(args):
     """Worker function to analyse a single commit (runs in subprocess)."""
     worktree_path, commit_info, excluded_paths, config = args
 
-    # Import here to avoid pickling issues
     from cluain.analyser import Analyser
 
     try:
@@ -86,7 +85,6 @@ class HistoricalTracker:
 
         history = self._create_history_skeleton(repo_name, repo_url)
 
-        # Create and analyse worktrees
         tasks = self._prepare_worktree_tasks(repo_path, commits, excluded_paths)
         results = self._run_analysis(repo_path, tasks)
 
