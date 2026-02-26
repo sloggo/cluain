@@ -1,0 +1,185 @@
+{
+  "repo_name": "expected",
+  "repo_url": "github.com/TartanLlama/expected",
+  "analysis_config": {
+    "threshold": 0.95,
+    "minimum_block_size": 150,
+    "device": "cpu",
+    "max_threads": 4,
+    "encode_batch_size": 32,
+    "similarity_batch_size": 500
+  },
+  "generated_at": "2026-02-25T18:29:20.727235",
+  "snapshots": [
+    {
+      "date": "2021-03-25",
+      "month": "2021-03",
+      "commit": "68a5f5d70111f6696831e7d96396ffa6db9b5545",
+      "metrics": {
+        "total_blocks": 275,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "date": "2021-09-07",
+      "month": "2021-09",
+      "commit": "96d547c03d2feab8db64c53c3744a9b4a7c8f2c5",
+      "metrics": {
+        "total_blocks": 275,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "date": "2022-11-24",
+      "month": "2022-11",
+      "commit": "b74fecd4448a1a5549402d17ddc51e39faa5020c",
+      "metrics": {
+        "total_blocks": 293,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "date": "2023-02-15",
+      "month": "2023-02",
+      "commit": "9d812f5e3b5bc68023f6e31d29489cdcaacef606",
+      "metrics": {
+        "total_blocks": 306,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "date": "2023-03-15",
+      "month": "2023-03",
+      "commit": "aa4f7a5e2422169d48342e369597f463ab666558",
+      "metrics": {
+        "total_blocks": 306,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "date": "2023-04-26",
+      "month": "2023-04",
+      "commit": "3f0ca7b19253129700a073abfa6d8638d9f7c80c",
+      "metrics": {
+        "total_blocks": 306,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "date": "2025-01-21",
+      "month": "2025-01",
+      "commit": "41d3e1f48d682992a2230b2a715bca38b848b269",
+      "metrics": {
+        "total_blocks": 326,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "date": "2025-07-12",
+      "month": "2025-07",
+      "commit": "ea916f39627f02f192b5ec532210ab184e266e3e",
+      "metrics": {
+        "total_blocks": 323,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "date": "2025-08-28",
+      "month": "2025-08",
+      "commit": "2089ecb887780923813903db390f1c9cbc94b855",
+      "metrics": {
+        "total_blocks": 323,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "date": "2025-09-01",
+      "month": "2025-09",
+      "commit": "1770e3559f2f6ea4a5fb4f577ad22aeb30fbd8e4",
+      "metrics": {
+        "total_blocks": 322,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    }
+  ]
+}

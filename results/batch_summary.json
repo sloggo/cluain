@@ -1,0 +1,856 @@
+{
+  "started_at": "2026-02-24T22:09:27.059069",
+  "config": {
+    "threshold": 0.95,
+    "minimum_block_size": 150,
+    "device": "cpu",
+    "max_threads": 4,
+    "encode_batch_size": 32,
+    "similarity_batch_size": 500
+  },
+  "repositories": [
+    {
+      "name": "RapidJSON",
+      "status": "success",
+      "snapshots": 43,
+      "latest_metrics": {
+        "total_blocks": 2228,
+        "duplicate_pairs": 354,
+        "duplicate_blocks": 252,
+        "duplication_ratio": 0.11310592459605028,
+        "clone_types": {
+          "T1": 9,
+          "T2": 9,
+          "T3": 50,
+          "T4": 286
+        }
+      }
+    },
+    {
+      "name": "tinyxml2",
+      "status": "success",
+      "snapshots": 40,
+      "latest_metrics": {
+        "total_blocks": 409,
+        "duplicate_pairs": 1,
+        "duplicate_blocks": 2,
+        "duplication_ratio": 0.004889975550122249,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 1
+        }
+      }
+    },
+    {
+      "name": "cpp-httplib",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 4379,
+        "duplicate_pairs": 1341,
+        "duplicate_blocks": 965,
+        "duplication_ratio": 0.22036994747659283,
+        "clone_types": {
+          "T1": 150,
+          "T2": 210,
+          "T3": 420,
+          "T4": 561
+        }
+      }
+    },
+    {
+      "name": "spdlog",
+      "status": "success",
+      "snapshots": 71,
+      "latest_metrics": {
+        "total_blocks": 2041,
+        "duplicate_pairs": 1493,
+        "duplicate_blocks": 586,
+        "duplication_ratio": 0.2871141597256247,
+        "clone_types": {
+          "T1": 26,
+          "T2": 28,
+          "T3": 186,
+          "T4": 1253
+        }
+      }
+    },
+    {
+      "name": "Halley",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 35195,
+        "duplicate_pairs": 73416,
+        "duplicate_blocks": 15235,
+        "duplication_ratio": 0.4328739877823555,
+        "clone_types": {
+          "T1": 2514,
+          "T2": 2415,
+          "T3": 10445,
+          "T4": 58042
+        }
+      }
+    },
+    {
+      "name": "abseil-cpp",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 13699,
+        "duplicate_pairs": 15954,
+        "duplicate_blocks": 5051,
+        "duplication_ratio": 0.3687130447477918,
+        "clone_types": {
+          "T1": 66,
+          "T2": 161,
+          "T3": 561,
+          "T4": 15166
+        }
+      }
+    },
+    {
+      "name": "cryptopp",
+      "status": "success",
+      "snapshots": 45,
+      "latest_metrics": {
+        "total_blocks": 5685,
+        "duplicate_pairs": 13010,
+        "duplicate_blocks": 2901,
+        "duplication_ratio": 0.5102902374670185,
+        "clone_types": {
+          "T1": 308,
+          "T2": 351,
+          "T3": 889,
+          "T4": 11462
+        }
+      }
+    },
+    {
+      "name": "nlohmann-json",
+      "status": "success",
+      "snapshots": 66,
+      "latest_metrics": {
+        "total_blocks": 5082,
+        "duplicate_pairs": 7202,
+        "duplicate_blocks": 2617,
+        "duplication_ratio": 0.5149547422274695,
+        "clone_types": {
+          "T1": 1560,
+          "T2": 598,
+          "T3": 2006,
+          "T4": 3038
+        }
+      }
+    },
+    {
+      "name": "fmt",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 5025,
+        "duplicate_pairs": 2757,
+        "duplicate_blocks": 1523,
+        "duplication_ratio": 0.3030845771144279,
+        "clone_types": {
+          "T1": 99,
+          "T2": 48,
+          "T3": 271,
+          "T4": 2339
+        }
+      }
+    },
+    {
+      "name": "Catch2",
+      "status": "success",
+      "snapshots": 68,
+      "latest_metrics": {
+        "total_blocks": 4878,
+        "duplicate_pairs": 3419,
+        "duplicate_blocks": 2318,
+        "duplication_ratio": 0.4751947519475195,
+        "clone_types": {
+          "T1": 1273,
+          "T2": 345,
+          "T3": 865,
+          "T4": 936
+        }
+      }
+    },
+    {
+      "name": "leveldb",
+      "status": "success",
+      "snapshots": 26,
+      "latest_metrics": {
+        "total_blocks": 1544,
+        "duplicate_pairs": 712,
+        "duplicate_blocks": 428,
+        "duplication_ratio": 0.2772020725388601,
+        "clone_types": {
+          "T1": 16,
+          "T2": 6,
+          "T3": 18,
+          "T4": 672
+        }
+      }
+    },
+    {
+      "name": "bgfx",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 26771,
+        "duplicate_pairs": 36179,
+        "duplicate_blocks": 9947,
+        "duplication_ratio": 0.37155877628777406,
+        "clone_types": {
+          "T1": 763,
+          "T2": 638,
+          "T3": 2506,
+          "T4": 32272
+        }
+      }
+    },
+    {
+      "name": "imgui",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 2978,
+        "duplicate_pairs": 3326,
+        "duplicate_blocks": 1252,
+        "duplication_ratio": 0.4204163868368032,
+        "clone_types": {
+          "T1": 93,
+          "T2": 171,
+          "T3": 256,
+          "T4": 2806
+        }
+      }
+    },
+    {
+      "name": "pybind11",
+      "status": "success",
+      "snapshots": 72,
+      "latest_metrics": {
+        "total_blocks": 2493,
+        "duplicate_pairs": 409,
+        "duplicate_blocks": 291,
+        "duplication_ratio": 0.11672683513838748,
+        "clone_types": {
+          "T1": 9,
+          "T2": 3,
+          "T3": 27,
+          "T4": 370
+        }
+      }
+    },
+    {
+      "name": "simdjson",
+      "status": "success",
+      "snapshots": 72,
+      "latest_metrics": {
+        "total_blocks": 22625,
+        "duplicate_pairs": 29715,
+        "duplicate_blocks": 10640,
+        "duplication_ratio": 0.47027624309392263,
+        "clone_types": {
+          "T1": 13402,
+          "T2": 3188,
+          "T3": 4691,
+          "T4": 8434
+        }
+      }
+    },
+    {
+      "name": "benchmark",
+      "status": "success",
+      "snapshots": 71,
+      "latest_metrics": {
+        "total_blocks": 851,
+        "duplicate_pairs": 441,
+        "duplicate_blocks": 215,
+        "duplication_ratio": 0.2526439482961222,
+        "clone_types": {
+          "T1": 18,
+          "T2": 11,
+          "T3": 124,
+          "T4": 288
+        }
+      }
+    },
+    {
+      "name": "googletest",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 5933,
+        "duplicate_pairs": 2193,
+        "duplicate_blocks": 1218,
+        "duplication_ratio": 0.20529243215911006,
+        "clone_types": {
+          "T1": 2,
+          "T2": 5,
+          "T3": 197,
+          "T4": 1989
+        }
+      }
+    },
+    {
+      "name": "flatbuffers",
+      "status": "success",
+      "snapshots": 70,
+      "latest_metrics": {
+        "total_blocks": 8006,
+        "duplicate_pairs": 16555,
+        "duplicate_blocks": 3701,
+        "duplication_ratio": 0.46227829128153886,
+        "clone_types": {
+          "T1": 3153,
+          "T2": 3680,
+          "T3": 4630,
+          "T4": 5092
+        }
+      }
+    },
+    {
+      "name": "yaml-cpp",
+      "status": "success",
+      "snapshots": 45,
+      "latest_metrics": {
+        "total_blocks": 16960,
+        "duplicate_pairs": 27144,
+        "duplicate_blocks": 9055,
+        "duplication_ratio": 0.5339033018867925,
+        "clone_types": {
+          "T1": 6014,
+          "T2": 2394,
+          "T3": 7562,
+          "T4": 11174
+        }
+      }
+    },
+    {
+      "name": "cpr",
+      "status": "success",
+      "snapshots": 71,
+      "latest_metrics": {
+        "total_blocks": 1345,
+        "duplicate_pairs": 862,
+        "duplicate_blocks": 359,
+        "duplication_ratio": 0.26691449814126395,
+        "clone_types": {
+          "T1": 165,
+          "T2": 19,
+          "T3": 206,
+          "T4": 472
+        }
+      }
+    },
+    {
+      "name": "asio",
+      "status": "success",
+      "snapshots": 50,
+      "latest_metrics": {
+        "total_blocks": 16579,
+        "duplicate_pairs": 48357,
+        "duplicate_blocks": 9475,
+        "duplication_ratio": 0.5715061222027866,
+        "clone_types": {
+          "T1": 10076,
+          "T2": 4810,
+          "T3": 10667,
+          "T4": 22804
+        }
+      }
+    },
+    {
+      "name": "poco",
+      "status": "success",
+      "snapshots": 70,
+      "latest_metrics": {
+        "total_blocks": 42316,
+        "duplicate_pairs": 80818,
+        "duplicate_blocks": 23808,
+        "duplication_ratio": 0.5626240665469326,
+        "clone_types": {
+          "T1": 6280,
+          "T2": 2971,
+          "T3": 8090,
+          "T4": 63477
+        }
+      }
+    },
+    {
+      "name": "protobuf",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 38183,
+        "duplicate_pairs": 88255,
+        "duplicate_blocks": 22604,
+        "duplication_ratio": 0.5919912002723725,
+        "clone_types": {
+          "T1": 12020,
+          "T2": 12126,
+          "T3": 24427,
+          "T4": 39682
+        }
+      }
+    },
+    {
+      "name": "folly",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 36629,
+        "duplicate_pairs": 68866,
+        "duplicate_blocks": 16848,
+        "duplication_ratio": 0.4599634169647001,
+        "clone_types": {
+          "T1": 2283,
+          "T2": 686,
+          "T3": 3522,
+          "T4": 62375
+        }
+      }
+    },
+    {
+      "name": "capnproto",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 6833,
+        "duplicate_pairs": 6408,
+        "duplicate_blocks": 2348,
+        "duplication_ratio": 0.3436265183667496,
+        "clone_types": {
+          "T1": 8,
+          "T2": 1113,
+          "T3": 3533,
+          "T4": 1754
+        }
+      }
+    },
+    {
+      "name": "msgpack-c",
+      "status": "success",
+      "snapshots": 5,
+      "latest_metrics": {
+        "total_blocks": 0,
+        "duplicate_pairs": 0
+      }
+    },
+    {
+      "name": "cereal",
+      "status": "success",
+      "snapshots": 14,
+      "latest_metrics": {
+        "total_blocks": 2341,
+        "duplicate_pairs": 859,
+        "duplicate_blocks": 321,
+        "duplication_ratio": 0.1371208885091841,
+        "clone_types": {
+          "T1": 3,
+          "T2": 12,
+          "T3": 119,
+          "T4": 725
+        }
+      }
+    },
+    {
+      "name": "doctest",
+      "status": "success",
+      "snapshots": 29,
+      "latest_metrics": {
+        "total_blocks": 808,
+        "duplicate_pairs": 250,
+        "duplicate_blocks": 320,
+        "duplication_ratio": 0.39603960396039606,
+        "clone_types": {
+          "T1": 153,
+          "T2": 15,
+          "T3": 28,
+          "T4": 54
+        }
+      }
+    },
+    {
+      "name": "indicators",
+      "status": "success",
+      "snapshots": 26,
+      "latest_metrics": {
+        "total_blocks": 351,
+        "duplicate_pairs": 722,
+        "duplicate_blocks": 280,
+        "duplication_ratio": 0.7977207977207977,
+        "clone_types": {
+          "T1": 207,
+          "T2": 52,
+          "T3": 353,
+          "T4": 110
+        }
+      }
+    },
+    {
+      "name": "tabulate",
+      "status": "success",
+      "snapshots": 18,
+      "latest_metrics": {
+        "total_blocks": 1346,
+        "duplicate_pairs": 1572,
+        "duplicate_blocks": 653,
+        "duplication_ratio": 0.4851411589895988,
+        "clone_types": {
+          "T1": 313,
+          "T2": 306,
+          "T3": 631,
+          "T4": 322
+        }
+      }
+    },
+    {
+      "name": "argparse",
+      "status": "success",
+      "snapshots": 44,
+      "latest_metrics": {
+        "total_blocks": 509,
+        "duplicate_pairs": 132,
+        "duplicate_blocks": 82,
+        "duplication_ratio": 0.16110019646365423,
+        "clone_types": {
+          "T1": 2,
+          "T2": 2,
+          "T3": 21,
+          "T4": 107
+        }
+      }
+    },
+    {
+      "name": "CLI11",
+      "status": "success",
+      "snapshots": 70,
+      "latest_metrics": {
+        "total_blocks": 830,
+        "duplicate_pairs": 298,
+        "duplicate_blocks": 141,
+        "duplication_ratio": 0.16987951807228915,
+        "clone_types": {
+          "T1": 1,
+          "T2": 2,
+          "T3": 4,
+          "T4": 291
+        }
+      }
+    },
+    {
+      "name": "cxxopts",
+      "status": "success",
+      "snapshots": 49,
+      "latest_metrics": {
+        "total_blocks": 1508,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "name": "rang",
+      "status": "success",
+      "snapshots": 3,
+      "latest_metrics": {
+        "total_blocks": 25,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "name": "date",
+      "status": "success",
+      "snapshots": 44,
+      "latest_metrics": {
+        "total_blocks": 1893,
+        "duplicate_pairs": 1509,
+        "duplicate_blocks": 415,
+        "duplication_ratio": 0.21922873745377708,
+        "clone_types": {
+          "T1": 211,
+          "T2": 220,
+          "T3": 477,
+          "T4": 601
+        }
+      }
+    },
+    {
+      "name": "expected",
+      "status": "success",
+      "snapshots": 10,
+      "latest_metrics": {
+        "total_blocks": 322,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "name": "entt",
+      "status": "success",
+      "snapshots": 72,
+      "latest_metrics": {
+        "total_blocks": 8746,
+        "duplicate_pairs": 10699,
+        "duplicate_blocks": 3873,
+        "duplication_ratio": 0.44283100846101076,
+        "clone_types": {
+          "T1": 1567,
+          "T2": 421,
+          "T3": 1354,
+          "T4": 7357
+        }
+      }
+    },
+    {
+      "name": "sol2",
+      "status": "success",
+      "snapshots": 32,
+      "latest_metrics": {
+        "total_blocks": 3323,
+        "duplicate_pairs": 5820,
+        "duplicate_blocks": 1344,
+        "duplication_ratio": 0.40445380680108334,
+        "clone_types": {
+          "T1": 95,
+          "T2": 73,
+          "T3": 303,
+          "T4": 5349
+        }
+      }
+    },
+    {
+      "name": "toml11",
+      "status": "success",
+      "snapshots": 53,
+      "latest_metrics": {
+        "total_blocks": 2699,
+        "duplicate_pairs": 3127,
+        "duplicate_blocks": 1232,
+        "duplication_ratio": 0.4564653575398296,
+        "clone_types": {
+          "T1": 623,
+          "T2": 356,
+          "T3": 873,
+          "T4": 1275
+        }
+      }
+    },
+    {
+      "name": "stb",
+      "status": "success",
+      "snapshots": 33,
+      "latest_metrics": {
+        "total_blocks": 2835,
+        "duplicate_pairs": 5060,
+        "duplicate_blocks": 1737,
+        "duplication_ratio": 0.6126984126984127,
+        "clone_types": {
+          "T1": 507,
+          "T2": 68,
+          "T3": 385,
+          "T4": 4100
+        }
+      }
+    },
+    {
+      "name": "glm",
+      "status": "success",
+      "snapshots": 57,
+      "latest_metrics": {
+        "total_blocks": 1737,
+        "duplicate_pairs": 3493,
+        "duplicate_blocks": 856,
+        "duplication_ratio": 0.49280368451352907,
+        "clone_types": {
+          "T1": 45,
+          "T2": 220,
+          "T3": 389,
+          "T4": 2839
+        }
+      }
+    },
+    {
+      "name": "glfw",
+      "status": "success",
+      "snapshots": 50,
+      "latest_metrics": {
+        "total_blocks": 1961,
+        "duplicate_pairs": 1337,
+        "duplicate_blocks": 627,
+        "duplication_ratio": 0.3197348291687914,
+        "clone_types": {
+          "T1": 15,
+          "T2": 57,
+          "T3": 173,
+          "T4": 1092
+        }
+      }
+    },
+    {
+      "name": "rocksdb",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 30464,
+        "duplicate_pairs": 51483,
+        "duplicate_blocks": 13473,
+        "duplication_ratio": 0.44225971638655465,
+        "clone_types": {
+          "T1": 2467,
+          "T2": 901,
+          "T3": 3723,
+          "T4": 44392
+        }
+      }
+    },
+    {
+      "name": "raylib",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 10303,
+        "duplicate_pairs": 14071,
+        "duplicate_blocks": 4769,
+        "duplication_ratio": 0.46287489080850236,
+        "clone_types": {
+          "T1": 720,
+          "T2": 1149,
+          "T3": 1419,
+          "T4": 10783
+        }
+      }
+    },
+    {
+      "name": "box2d",
+      "status": "success",
+      "snapshots": 25,
+      "latest_metrics": {
+        "total_blocks": 2073,
+        "duplicate_pairs": 5241,
+        "duplicate_blocks": 1292,
+        "duplication_ratio": 0.623251326579836,
+        "clone_types": {
+          "T1": 50,
+          "T2": 304,
+          "T3": 312,
+          "T4": 4575
+        }
+      }
+    },
+    {
+      "name": "SDL",
+      "status": "success",
+      "snapshots": 64,
+      "latest_metrics": {
+        "total_blocks": 12654,
+        "duplicate_pairs": 27726,
+        "duplicate_blocks": 7269,
+        "duplication_ratio": 0.5744428639165481,
+        "clone_types": {
+          "T1": 458,
+          "T2": 1393,
+          "T3": 1807,
+          "T4": 24068
+        }
+      }
+    },
+    {
+      "name": "libuv",
+      "status": "success",
+      "snapshots": 72,
+      "latest_metrics": {
+        "total_blocks": 3235,
+        "duplicate_pairs": 10577,
+        "duplicate_blocks": 2165,
+        "duplication_ratio": 0.6692426584234931,
+        "clone_types": {
+          "T1": 74,
+          "T2": 34,
+          "T3": 675,
+          "T4": 9794
+        }
+      }
+    },
+    {
+      "name": "libsodium",
+      "status": "success",
+      "snapshots": 67,
+      "latest_metrics": {
+        "total_blocks": 1596,
+        "duplicate_pairs": 4483,
+        "duplicate_blocks": 948,
+        "duplication_ratio": 0.5939849624060151,
+        "clone_types": {
+          "T1": 87,
+          "T2": 258,
+          "T3": 648,
+          "T4": 3490
+        }
+      }
+    },
+    {
+      "name": "bullet3",
+      "status": "success",
+      "snapshots": 42,
+      "latest_metrics": {
+        "total_blocks": 29483,
+        "duplicate_pairs": 56315,
+        "duplicate_blocks": 13401,
+        "duplication_ratio": 0.4545331207814673,
+        "clone_types": {
+          "T1": 773,
+          "T2": 2164,
+          "T3": 4365,
+          "T4": 49013
+        }
+      }
+    },
+    {
+      "name": "openssl",
+      "status": "success",
+      "snapshots": 73,
+      "latest_metrics": {
+        "total_blocks": 20912,
+        "duplicate_pairs": 67741,
+        "duplicate_blocks": 13858,
+        "duplication_ratio": 0.662681713848508,
+        "clone_types": {
+          "T1": 310,
+          "T2": 2349,
+          "T3": 5148,
+          "T4": 59934
+        }
+      }
+    }
+  ],
+  "completed_at": "2026-02-26T03:11:16.680784"
+}

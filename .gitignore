@@ -15,6 +15,7 @@ build/
 # Output files
 *.json
 !package.json
+!results/*.json
 repos/
 
 # OS

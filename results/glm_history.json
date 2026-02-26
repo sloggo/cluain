@@ -1,0 +1,984 @@
+{
+  "repo_name": "glm",
+  "repo_url": "github.com/g-truc/glm",
+  "analysis_config": {
+    "threshold": 0.95,
+    "minimum_block_size": 150,
+    "device": "cpu",
+    "max_threads": 4,
+    "encode_batch_size": 32,
+    "similarity_batch_size": 500
+  },
+  "generated_at": "2026-02-25T20:19:57.912936",
+  "snapshots": [
+    {
+      "date": "2020-02-28",
+      "month": "2020-02",
+      "commit": "31d01b525e13db4cbc293f22f46c9913ef07ff09",
+      "metrics": {
+        "total_blocks": 648,
+        "duplicate_pairs": 131,
+        "duplicate_blocks": 44,
+        "duplication_ratio": 0.06790123456790123,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 5,
+          "T4": 126
+        }
+      }
+    },
+    {
+      "date": "2020-03-05",
+      "month": "2020-03",
+      "commit": "f4c66673472d399d714f9cdb9711b86da526566d",
+      "metrics": {
+        "total_blocks": 758,
+        "duplicate_pairs": 410,
+        "duplicate_blocks": 106,
+        "duplication_ratio": 0.13984168865435356,
+        "clone_types": {
+          "T1": 0,
+          "T2": 160,
+          "T3": 50,
+          "T4": 200
+        }
+      }
+    },
+    {
+      "date": "2020-04-12",
+      "month": "2020-04",
+      "commit": "b4c5bb6c1a494c8d24eaa205a244577c44b854d8",
+      "metrics": {
+        "total_blocks": 758,
+        "duplicate_pairs": 410,
+        "duplicate_blocks": 106,
+        "duplication_ratio": 0.13984168865435356,
+        "clone_types": {
+          "T1": 0,
+          "T2": 160,
+          "T3": 50,
+          "T4": 200
+        }
+      }
+    },
+    {
+      "date": "2020-05-01",
+      "month": "2020-05",
+      "commit": "280ba0238216d8d6846428950152c10f368045e7",
+      "metrics": {
+        "total_blocks": 758,
+        "duplicate_pairs": 410,
+        "duplicate_blocks": 106,
+        "duplication_ratio": 0.13984168865435356,
+        "clone_types": {
+          "T1": 0,
+          "T2": 160,
+          "T3": 50,
+          "T4": 200
+        }
+      }
+    },
+    {
+      "date": "2020-06-07",
+      "month": "2020-06",
+      "commit": "a584c01fb5e1b41dc088bbddbc7d61065a3595ac",
+      "metrics": {
+        "total_blocks": 758,
+        "duplicate_pairs": 412,
+        "duplicate_blocks": 107,
+        "duplication_ratio": 0.14116094986807387,
+        "clone_types": {
+          "T1": 0,
+          "T2": 160,
+          "T3": 50,
+          "T4": 202
+        }
+      }
+    },
+    {
+      "date": "2020-07-09",
+      "month": "2020-07",
+      "commit": "dc2a00e3a8fad8aaeea6a3715166759c57ebd2b1",
+      "metrics": {
+        "total_blocks": 758,
+        "duplicate_pairs": 412,
+        "duplicate_blocks": 107,
+        "duplication_ratio": 0.14116094986807387,
+        "clone_types": {
+          "T1": 0,
+          "T2": 160,
+          "T3": 50,
+          "T4": 202
+        }
+      }
+    },
+    {
+      "date": "2020-08-04",
+      "month": "2020-08",
+      "commit": "e7554a5d880459ce7f77203cb4aac92742aa5433",
+      "metrics": {
+        "total_blocks": 758,
+        "duplicate_pairs": 412,
+        "duplicate_blocks": 107,
+        "duplication_ratio": 0.14116094986807387,
+        "clone_types": {
+          "T1": 0,
+          "T2": 160,
+          "T3": 50,
+          "T4": 202
+        }
+      }
+    },
+    {
+      "date": "2020-09-02",
+      "month": "2020-09",
+      "commit": "b43fa52360ac11d0573dd5ee592061ef7a9ea011",
+      "metrics": {
+        "total_blocks": 758,
+        "duplicate_pairs": 412,
+        "duplicate_blocks": 107,
+        "duplication_ratio": 0.14116094986807387,
+        "clone_types": {
+          "T1": 0,
+          "T2": 160,
+          "T3": 50,
+          "T4": 202
+        }
+      }
+    },
+    {
+      "date": "2020-10-04",
+      "month": "2020-10",
+      "commit": "b7f209b18dbd7819954b752caa458d44752dfd11",
+      "metrics": {
+        "total_blocks": 758,
+        "duplicate_pairs": 412,
+        "duplicate_blocks": 107,
+        "duplication_ratio": 0.14116094986807387,
+        "clone_types": {
+          "T1": 0,
+          "T2": 160,
+          "T3": 50,
+          "T4": 202
+        }
+      }
+    },
+    {
+      "date": "2020-11-09",
+      "month": "2020-11",
+      "commit": "596577f2004fb36308a5afc277b1aaf2dc7cbb55",
+      "metrics": {
+        "total_blocks": 758,
+        "duplicate_pairs": 412,
+        "duplicate_blocks": 107,
+        "duplication_ratio": 0.14116094986807387,
+        "clone_types": {
+          "T1": 0,
+          "T2": 160,
+          "T3": 50,
+          "T4": 202
+        }
+      }
+    },
+    {
+      "date": "2020-12-01",
+      "month": "2020-12",
+      "commit": "24a4befe80171966758983173f381ce1ef6c839f",
+      "metrics": {
+        "total_blocks": 806,
+        "duplicate_pairs": 524,
+        "duplicate_blocks": 148,
+        "duplication_ratio": 0.18362282878411912,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 307
+        }
+      }
+    },
+    {
+      "date": "2021-01-30",
+      "month": "2021-01",
+      "commit": "e936ed35eaea255d115a46912d69e443f6c3004a",
+      "metrics": {
+        "total_blocks": 812,
+        "duplicate_pairs": 524,
+        "duplicate_blocks": 148,
+        "duplication_ratio": 0.18226600985221675,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 307
+        }
+      }
+    },
+    {
+      "date": "2021-02-14",
+      "month": "2021-02",
+      "commit": "eabaf2338b1d9c1da04976648fe63e1fb8caab4e",
+      "metrics": {
+        "total_blocks": 814,
+        "duplicate_pairs": 527,
+        "duplicate_blocks": 149,
+        "duplication_ratio": 0.18304668304668303,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 310
+        }
+      }
+    },
+    {
+      "date": "2021-03-02",
+      "month": "2021-03",
+      "commit": "64be09e1b1390ddcd0f79f38531855a9de26ad1f",
+      "metrics": {
+        "total_blocks": 814,
+        "duplicate_pairs": 527,
+        "duplicate_blocks": 149,
+        "duplication_ratio": 0.18304668304668303,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 310
+        }
+      }
+    },
+    {
+      "date": "2021-04-05",
+      "month": "2021-04",
+      "commit": "761a842a595f58acfc01cc5c7760ff351feaaece",
+      "metrics": {
+        "total_blocks": 819,
+        "duplicate_pairs": 527,
+        "duplicate_blocks": 149,
+        "duplication_ratio": 0.18192918192918192,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 310
+        }
+      }
+    },
+    {
+      "date": "2021-05-02",
+      "month": "2021-05",
+      "commit": "f931c4996ab15a0e911b9d5247d0edaa3fa426d5",
+      "metrics": {
+        "total_blocks": 819,
+        "duplicate_pairs": 527,
+        "duplicate_blocks": 149,
+        "duplication_ratio": 0.18192918192918192,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 310
+        }
+      }
+    },
+    {
+      "date": "2021-06-01",
+      "month": "2021-06",
+      "commit": "f32eea13455215369380df82e212c287e5da4f56",
+      "metrics": {
+        "total_blocks": 843,
+        "duplicate_pairs": 531,
+        "duplicate_blocks": 155,
+        "duplication_ratio": 0.18386714116251482,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 314
+        }
+      }
+    },
+    {
+      "date": "2021-07-15",
+      "month": "2021-07",
+      "commit": "2759ceca04db5c36d2806a2280f51b83a6749c12",
+      "metrics": {
+        "total_blocks": 839,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18116805721096543,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2021-08-05",
+      "month": "2021-08",
+      "commit": "a1d88cf99137f2f09154d6fb2cd41738057ad6cb",
+      "metrics": {
+        "total_blocks": 839,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18116805721096543,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2021-09-02",
+      "month": "2021-09",
+      "commit": "6ad79aae3eb5bf809c30bf1168171e9e55857e45",
+      "metrics": {
+        "total_blocks": 839,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18116805721096543,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2021-10-07",
+      "month": "2021-10",
+      "commit": "a47a719b1781a01c629888d8e96307982da0b63a",
+      "metrics": {
+        "total_blocks": 839,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18116805721096543,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2021-11-03",
+      "month": "2021-11",
+      "commit": "fcda03b54596adda543bcdccc6c1879e380c86a7",
+      "metrics": {
+        "total_blocks": 839,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18116805721096543,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2021-12-13",
+      "month": "2021-12",
+      "commit": "b857caa655182dd1ff3ed8f83460afcead8b1485",
+      "metrics": {
+        "total_blocks": 839,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18116805721096543,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2022-01-14",
+      "month": "2022-01",
+      "commit": "3062122e5e4ee568d1108a56b95ce4601c794385",
+      "metrics": {
+        "total_blocks": 839,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18116805721096543,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2022-02-10",
+      "month": "2022-02",
+      "commit": "63a229359efd1b8ad35c63110027687a42343112",
+      "metrics": {
+        "total_blocks": 839,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18116805721096543,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2022-04-20",
+      "month": "2022-04",
+      "commit": "cc98465e3508535ba8c7f6208df934c156a018dc",
+      "metrics": {
+        "total_blocks": 840,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18095238095238095,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2022-06-02",
+      "month": "2022-06",
+      "commit": "e1b2d3d7d55fb7bfb996fd6b96ef71f162590b13",
+      "metrics": {
+        "total_blocks": 840,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18095238095238095,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2022-07-11",
+      "month": "2022-07",
+      "commit": "8415b031f9831bd489f74a1c0356d1900fe6f205",
+      "metrics": {
+        "total_blocks": 840,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18095238095238095,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2022-08-01",
+      "month": "2022-08",
+      "commit": "8719fcb83960297705cf92b393e4129ac55f9f96",
+      "metrics": {
+        "total_blocks": 840,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18095238095238095,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2022-09-19",
+      "month": "2022-09",
+      "commit": "b4a09f5ac01a7878070ef02a0cf6b07eb8242e95",
+      "metrics": {
+        "total_blocks": 840,
+        "duplicate_pairs": 530,
+        "duplicate_blocks": 152,
+        "duplication_ratio": 0.18095238095238095,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 313
+        }
+      }
+    },
+    {
+      "date": "2022-10-24",
+      "month": "2022-10",
+      "commit": "0a6d3334ea747b0023d232572d3aff61dc6b48e6",
+      "metrics": {
+        "total_blocks": 854,
+        "duplicate_pairs": 544,
+        "duplicate_blocks": 161,
+        "duplication_ratio": 0.1885245901639344,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 327
+        }
+      }
+    },
+    {
+      "date": "2023-01-08",
+      "month": "2023-01",
+      "commit": "1f61d8a056033ee80567ec3cc05061a8f4f4eca9",
+      "metrics": {
+        "total_blocks": 854,
+        "duplicate_pairs": 544,
+        "duplicate_blocks": 161,
+        "duplication_ratio": 0.1885245901639344,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 327
+        }
+      }
+    },
+    {
+      "date": "2023-02-26",
+      "month": "2023-02",
+      "commit": "4afe953bffe30ff033ec924c35ddaf47d0365e17",
+      "metrics": {
+        "total_blocks": 889,
+        "duplicate_pairs": 627,
+        "duplicate_blocks": 183,
+        "duplication_ratio": 0.20584926884139482,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 410
+        }
+      }
+    },
+    {
+      "date": "2023-03-21",
+      "month": "2023-03",
+      "commit": "91c9409959d28f4080d1c432c48d252f11a69381",
+      "metrics": {
+        "total_blocks": 889,
+        "duplicate_pairs": 627,
+        "duplicate_blocks": 183,
+        "duplication_ratio": 0.20584926884139482,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 410
+        }
+      }
+    },
+    {
+      "date": "2023-04-01",
+      "month": "2023-04",
+      "commit": "c6606998a529e4e90afc5d06d435a30f5d59445b",
+      "metrics": {
+        "total_blocks": 889,
+        "duplicate_pairs": 627,
+        "duplicate_blocks": 183,
+        "duplication_ratio": 0.20584926884139482,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 410
+        }
+      }
+    },
+    {
+      "date": "2023-05-12",
+      "month": "2023-05",
+      "commit": "64861133792e2b22bcbeed4a70a4550bef17e9ef",
+      "metrics": {
+        "total_blocks": 889,
+        "duplicate_pairs": 627,
+        "duplicate_blocks": 183,
+        "duplication_ratio": 0.20584926884139482,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 410
+        }
+      }
+    },
+    {
+      "date": "2023-06-08",
+      "month": "2023-06",
+      "commit": "5c46b9c07008ae65cb81ab79cd677ecc1934b903",
+      "metrics": {
+        "total_blocks": 889,
+        "duplicate_pairs": 627,
+        "duplicate_blocks": 183,
+        "duplication_ratio": 0.20584926884139482,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 410
+        }
+      }
+    },
+    {
+      "date": "2023-07-10",
+      "month": "2023-07",
+      "commit": "21db8fbdcbb8fa1f2aadf312a131eb13ed208792",
+      "metrics": {
+        "total_blocks": 889,
+        "duplicate_pairs": 627,
+        "duplicate_blocks": 183,
+        "duplication_ratio": 0.20584926884139482,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 410
+        }
+      }
+    },
+    {
+      "date": "2023-08-18",
+      "month": "2023-08",
+      "commit": "47585fde0c49fa77a2bf2fb1d2ead06999fd4b6e",
+      "metrics": {
+        "total_blocks": 934,
+        "duplicate_pairs": 727,
+        "duplicate_blocks": 215,
+        "duplication_ratio": 0.23019271948608136,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 510
+        }
+      }
+    },
+    {
+      "date": "2023-11-08",
+      "month": "2023-11",
+      "commit": "c2c1d1559208d5c1ab3413b66cc1c642a93c633b",
+      "metrics": {
+        "total_blocks": 961,
+        "duplicate_pairs": 766,
+        "duplicate_blocks": 229,
+        "duplication_ratio": 0.23829344432882413,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 52,
+          "T4": 549
+        }
+      }
+    },
+    {
+      "date": "2023-12-20",
+      "month": "2023-12",
+      "commit": "1682a8c360ba5e9ce074e50a0ba5a9dc9f3e86b9",
+      "metrics": {
+        "total_blocks": 1004,
+        "duplicate_pairs": 808,
+        "duplicate_blocks": 257,
+        "duplication_ratio": 0.2559760956175299,
+        "clone_types": {
+          "T1": 3,
+          "T2": 162,
+          "T3": 53,
+          "T4": 590
+        }
+      }
+    },
+    {
+      "date": "2024-01-03",
+      "month": "2024-01",
+      "commit": "b06b775c1c80af51a1183c0e167f9de3b2351a79",
+      "metrics": {
+        "total_blocks": 1069,
+        "duplicate_pairs": 1102,
+        "duplicate_blocks": 315,
+        "duplication_ratio": 0.29466791393826003,
+        "clone_types": {
+          "T1": 3,
+          "T2": 172,
+          "T3": 94,
+          "T4": 833
+        }
+      }
+    },
+    {
+      "date": "2024-02-03",
+      "month": "2024-02",
+      "commit": "8ebe4b5e57de140599a053083f27052f663c68f1",
+      "metrics": {
+        "total_blocks": 1565,
+        "duplicate_pairs": 3097,
+        "duplicate_blocks": 770,
+        "duplication_ratio": 0.49201277955271566,
+        "clone_types": {
+          "T1": 53,
+          "T2": 229,
+          "T3": 425,
+          "T4": 2390
+        }
+      }
+    },
+    {
+      "date": "2024-03-05",
+      "month": "2024-03",
+      "commit": "ab2d7b42915f0bdf34590fd721c32af4bd5d1087",
+      "metrics": {
+        "total_blocks": 1582,
+        "duplicate_pairs": 3155,
+        "duplicate_blocks": 782,
+        "duplication_ratio": 0.4943109987357775,
+        "clone_types": {
+          "T1": 53,
+          "T2": 228,
+          "T3": 427,
+          "T4": 2447
+        }
+      }
+    },
+    {
+      "date": "2024-04-08",
+      "month": "2024-04",
+      "commit": "0904870e37402718f4c39f5745a6c60e2057d9c6",
+      "metrics": {
+        "total_blocks": 1601,
+        "duplicate_pairs": 3191,
+        "duplicate_blocks": 789,
+        "duplication_ratio": 0.4928169893816365,
+        "clone_types": {
+          "T1": 52,
+          "T2": 218,
+          "T3": 388,
+          "T4": 2533
+        }
+      }
+    },
+    {
+      "date": "2024-06-07",
+      "month": "2024-06",
+      "commit": "33b4a621a697a305bc3a7610d290677b96beb181",
+      "metrics": {
+        "total_blocks": 1601,
+        "duplicate_pairs": 3194,
+        "duplicate_blocks": 790,
+        "duplication_ratio": 0.4934415990006246,
+        "clone_types": {
+          "T1": 52,
+          "T2": 218,
+          "T3": 390,
+          "T4": 2534
+        }
+      }
+    },
+    {
+      "date": "2024-08-10",
+      "month": "2024-08",
+      "commit": "0d8637447c2ab41a62739a7e0059d8fca1279207",
+      "metrics": {
+        "total_blocks": 1601,
+        "duplicate_pairs": 3194,
+        "duplicate_blocks": 790,
+        "duplication_ratio": 0.4934415990006246,
+        "clone_types": {
+          "T1": 52,
+          "T2": 218,
+          "T3": 390,
+          "T4": 2534
+        }
+      }
+    },
+    {
+      "date": "2024-09-03",
+      "month": "2024-09",
+      "commit": "b30313ac309d8dcfa5cd3ed1292433f88e29993c",
+      "metrics": {
+        "total_blocks": 1610,
+        "duplicate_pairs": 3240,
+        "duplicate_blocks": 799,
+        "duplication_ratio": 0.4962732919254658,
+        "clone_types": {
+          "T1": 61,
+          "T2": 221,
+          "T3": 403,
+          "T4": 2555
+        }
+      }
+    },
+    {
+      "date": "2024-10-08",
+      "month": "2024-10",
+      "commit": "9b15c54c8cab8b8b9a0af495b2791adc12863a83",
+      "metrics": {
+        "total_blocks": 1601,
+        "duplicate_pairs": 3194,
+        "duplicate_blocks": 790,
+        "duplication_ratio": 0.4934415990006246,
+        "clone_types": {
+          "T1": 52,
+          "T2": 218,
+          "T3": 390,
+          "T4": 2534
+        }
+      }
+    },
+    {
+      "date": "2024-12-11",
+      "month": "2024-12",
+      "commit": "3adb4236fe6e0bbdbee3063a5b5598f7a4a4a162",
+      "metrics": {
+        "total_blocks": 1601,
+        "duplicate_pairs": 3194,
+        "duplicate_blocks": 790,
+        "duplication_ratio": 0.4934415990006246,
+        "clone_types": {
+          "T1": 52,
+          "T2": 218,
+          "T3": 390,
+          "T4": 2534
+        }
+      }
+    },
+    {
+      "date": "2025-01-04",
+      "month": "2025-01",
+      "commit": "52215573603e1f062ce6a6d6cb6f3429f6255642",
+      "metrics": {
+        "total_blocks": 1601,
+        "duplicate_pairs": 3194,
+        "duplicate_blocks": 790,
+        "duplication_ratio": 0.4934415990006246,
+        "clone_types": {
+          "T1": 52,
+          "T2": 218,
+          "T3": 390,
+          "T4": 2534
+        }
+      }
+    },
+    {
+      "date": "2025-02-07",
+      "month": "2025-02",
+      "commit": "2d4c4b4dd31fde06cfffad7915c2b3006402322f",
+      "metrics": {
+        "total_blocks": 1643,
+        "duplicate_pairs": 3258,
+        "duplicate_blocks": 810,
+        "duplication_ratio": 0.4930006086427267,
+        "clone_types": {
+          "T1": 61,
+          "T2": 221,
+          "T3": 404,
+          "T4": 2572
+        }
+      }
+    },
+    {
+      "date": "2025-09-23",
+      "month": "2025-09",
+      "commit": "e7714885929f1dcd2bdc2531cc99d3c1dc6daa18",
+      "metrics": {
+        "total_blocks": 1643,
+        "duplicate_pairs": 3257,
+        "duplicate_blocks": 810,
+        "duplication_ratio": 0.4930006086427267,
+        "clone_types": {
+          "T1": 61,
+          "T2": 221,
+          "T3": 403,
+          "T4": 2572
+        }
+      }
+    },
+    {
+      "date": "2025-10-05",
+      "month": "2025-10",
+      "commit": "c10f4f2352dec2bbf11678a6ee866797924cf2e7",
+      "metrics": {
+        "total_blocks": 1643,
+        "duplicate_pairs": 3253,
+        "duplicate_blocks": 809,
+        "duplication_ratio": 0.4923919659160073,
+        "clone_types": {
+          "T1": 61,
+          "T2": 221,
+          "T3": 405,
+          "T4": 2566
+        }
+      }
+    },
+    {
+      "date": "2025-11-06",
+      "month": "2025-11",
+      "commit": "a583c59e1616a628b18195869767ea4d6faca5f4",
+      "metrics": {
+        "total_blocks": 1730,
+        "duplicate_pairs": 3470,
+        "duplicate_blocks": 852,
+        "duplication_ratio": 0.49248554913294795,
+        "clone_types": {
+          "T1": 45,
+          "T2": 220,
+          "T3": 385,
+          "T4": 2820
+        }
+      }
+    },
+    {
+      "date": "2025-12-08",
+      "month": "2025-12",
+      "commit": "8f6213d379a904f5ae910e09a114e066e25faf57",
+      "metrics": {
+        "total_blocks": 1733,
+        "duplicate_pairs": 3475,
+        "duplicate_blocks": 853,
+        "duplication_ratio": 0.49221004039238314,
+        "clone_types": {
+          "T1": 45,
+          "T2": 220,
+          "T3": 385,
+          "T4": 2825
+        }
+      }
+    },
+    {
+      "date": "2026-01-01",
+      "month": "2026-01",
+      "commit": "2436fe76714d80a0a9b6dda43a186e48eae02abd",
+      "metrics": {
+        "total_blocks": 1737,
+        "duplicate_pairs": 3493,
+        "duplicate_blocks": 856,
+        "duplication_ratio": 0.49280368451352907,
+        "clone_types": {
+          "T1": 45,
+          "T2": 220,
+          "T3": 389,
+          "T4": 2839
+        }
+      }
+    }
+  ]
+}

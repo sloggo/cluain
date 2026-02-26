@@ -1,0 +1,92 @@
+{
+  "repo_name": "msgpack-c",
+  "repo_url": "github.com/msgpack/msgpack-c",
+  "analysis_config": {
+    "threshold": 0.95,
+    "minimum_block_size": 150,
+    "device": "cpu",
+    "max_threads": 4,
+    "encode_batch_size": 32,
+    "similarity_batch_size": 500
+  },
+  "generated_at": "2026-02-25T17:44:25.961630",
+  "snapshots": [
+    {
+      "date": "2020-03-07",
+      "month": "2020-03",
+      "commit": "b4d28c3d9df480be8cd4359c675a70e07a39d004",
+      "metrics": {
+        "total_blocks": 4896,
+        "duplicate_pairs": 3160,
+        "duplicate_blocks": 888,
+        "duplication_ratio": 0.18137254901960784,
+        "clone_types": {
+          "T1": 46,
+          "T2": 168,
+          "T3": 645,
+          "T4": 2301
+        }
+      }
+    },
+    {
+      "date": "2020-04-16",
+      "month": "2020-04",
+      "commit": "102dba8e24095398303de145a1c15a1ad96e7a49",
+      "metrics": {
+        "total_blocks": 5083,
+        "duplicate_pairs": 3337,
+        "duplicate_blocks": 989,
+        "duplication_ratio": 0.19457013574660634,
+        "clone_types": {
+          "T1": 46,
+          "T2": 170,
+          "T3": 652,
+          "T4": 2469
+        }
+      }
+    },
+    {
+      "date": "2020-05-01",
+      "month": "2020-05",
+      "commit": "4d36456799183a59654a4fae243af4c19e49d871",
+      "metrics": {
+        "total_blocks": 5166,
+        "duplicate_pairs": 3413,
+        "duplicate_blocks": 1031,
+        "duplication_ratio": 0.19957413859852885,
+        "clone_types": {
+          "T1": 46,
+          "T2": 169,
+          "T3": 643,
+          "T4": 2555
+        }
+      }
+    },
+    {
+      "date": "2020-06-01",
+      "month": "2020-06",
+      "commit": "746e983bf3f2b8a898e7aa497918355ed5d76b01",
+      "metrics": {
+        "total_blocks": 5179,
+        "duplicate_pairs": 3434,
+        "duplicate_blocks": 1042,
+        "duplication_ratio": 0.20119714230546437,
+        "clone_types": {
+          "T1": 46,
+          "T2": 168,
+          "T3": 655,
+          "T4": 2565
+        }
+      }
+    },
+    {
+      "date": "2023-02-28",
+      "month": "2023-02",
+      "commit": "b0d379a6f29af7dd65423ff78a94de8948f01bd8",
+      "metrics": {
+        "total_blocks": 0,
+        "duplicate_pairs": 0
+      }
+    }
+  ]
+}

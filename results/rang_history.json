@@ -1,0 +1,66 @@
+{
+  "repo_name": "rang",
+  "repo_url": "github.com/agauniyal/rang",
+  "analysis_config": {
+    "threshold": 0.95,
+    "minimum_block_size": 150,
+    "device": "cpu",
+    "max_threads": 4,
+    "encode_batch_size": 32,
+    "similarity_batch_size": 500
+  },
+  "generated_at": "2026-02-25T18:19:52.939510",
+  "snapshots": [
+    {
+      "date": "2021-07-30",
+      "month": "2021-07",
+      "commit": "8dec5960790aa9697803a4a8879a7010e8d133e9",
+      "metrics": {
+        "total_blocks": 25,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "date": "2022-06-21",
+      "month": "2022-06",
+      "commit": "9209b59521a2cba27adf3a07e77452c2006cd204",
+      "metrics": {
+        "total_blocks": 25,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    },
+    {
+      "date": "2022-07-01",
+      "month": "2022-07",
+      "commit": "22345aa4c468db3bd4a0e64a47722aad3518cc81",
+      "metrics": {
+        "total_blocks": 25,
+        "duplicate_pairs": 0,
+        "duplicate_blocks": 0,
+        "duplication_ratio": 0.0,
+        "clone_types": {
+          "T1": 0,
+          "T2": 0,
+          "T3": 0,
+          "T4": 0
+        }
+      }
+    }
+  ]
+}
